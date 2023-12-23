@@ -1,0 +1,81 @@
+<h1>Show Product order</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.product_order_show_path(@socket, :show, @product_order)}>
+    <.live_component
+      module={NgepaWeb.ProductOrderLive.FormComponent}
+      id={@product_order.id}
+      title={@page_title}
+      action={@live_action}
+      product_order={@product_order}
+      return_to={Routes.product_order_show_path(@socket, :show, @product_order)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Quantity:</strong>
+    <%= @product_order.quantity %>
+  </li>
+
+  <li>
+    <strong>Customer name:</strong>
+    <%= @product_order.customer_name %>
+  </li>
+
+  <li>
+    <strong>Customer email:</strong>
+    <%= @product_order.customer_email %>
+  </li>
+
+  <li>
+    <strong>Customer phone number:</strong>
+    <%= @product_order.customer_phone_number %>
+  </li>
+
+  <li>
+    <strong>Location:</strong>
+    <%= @product_order.location %>
+  </li>
+
+  <li>
+    <strong>More location details:</strong>
+    <%= @product_order.more_location_details %>
+  </li>
+
+  <li>
+    <strong>Status:</strong>
+    <%= @product_order.status %>
+  </li>
+
+  <li>
+    <strong>Latitude:</strong>
+    <%= @product_order.latitude %>
+  </li>
+
+  <li>
+    <strong>Longitude:</strong>
+    <%= @product_order.longitude %>
+  </li>
+
+  <li>
+    <strong>Total price:</strong>
+    <%= @product_order.total_price %>
+  </li>
+
+  <li>
+    <strong>Color:</strong>
+    <%= @product_order.color %>
+  </li>
+
+  <li>
+    <strong>Product order:</strong>
+    <%= @product_order.product_order_id %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.product_order_show_path(@socket, :edit, @product_order), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.product_order_index_path(@socket, :index) %></span>

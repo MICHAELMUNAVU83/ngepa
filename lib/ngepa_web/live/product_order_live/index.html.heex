@@ -1,0 +1,61 @@
+<h1>Listing Product orders</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.product_order_index_path(@socket, :index)}>
+    <.live_component
+      module={NgepaWeb.ProductOrderLive.FormComponent}
+      id={@product_order.id || :new}
+      title={@page_title}
+      action={@live_action}
+      product_order={@product_order}
+      return_to={Routes.product_order_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Customer name</th>
+      <th>Customer email</th>
+      <th>Customer phone number</th>
+      <th>Location</th>
+      <th>More location details</th>
+      <th>Status</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Total price</th>
+      <th>Color</th>
+      <th>Product order</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="product_orders">
+    <%= for product_order <- @product_orders do %>
+      <tr id={"product_order-#{product_order.id}"}>
+        <td><%= product_order.quantity %></td>
+        <td><%= product_order.customer_name %></td>
+        <td><%= product_order.customer_email %></td>
+        <td><%= product_order.customer_phone_number %></td>
+        <td><%= product_order.location %></td>
+        <td><%= product_order.more_location_details %></td>
+        <td><%= product_order.status %></td>
+        <td><%= product_order.latitude %></td>
+        <td><%= product_order.longitude %></td>
+        <td><%= product_order.total_price %></td>
+        <td><%= product_order.color %></td>
+        <td><%= product_order.product_order_id %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.product_order_show_path(@socket, :show, product_order) %></span>
+          <span><%= live_patch "Edit", to: Routes.product_order_index_path(@socket, :edit, product_order) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product_order.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Product order", to: Routes.product_order_index_path(@socket, :new) %></span>
