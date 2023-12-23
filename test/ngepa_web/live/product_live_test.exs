@@ -4,9 +4,30 @@ defmodule NgepaWeb.ProductLiveTest do
   import Phoenix.LiveViewTest
   import Ngepa.ProductsFixtures
 
-  @create_attrs %{name: "some name", description: "some description", collection: "some collection", primary_image: "some primary_image", in_stock: true, price: 42}
-  @update_attrs %{name: "some updated name", description: "some updated description", collection: "some updated collection", primary_image: "some updated primary_image", in_stock: false, price: 43}
-  @invalid_attrs %{name: nil, description: nil, collection: nil, primary_image: nil, in_stock: false, price: nil}
+  @create_attrs %{
+    name: "some name",
+    description: "some description",
+    collection: "some collection",
+    primary_image: "some primary_image",
+    in_stock: true,
+    price: 42
+  }
+  @update_attrs %{
+    name: "some updated name",
+    description: "some updated description",
+    collection: "some updated collection",
+    primary_image: "some updated primary_image",
+    in_stock: false,
+    price: 43
+  }
+  @invalid_attrs %{
+    name: nil,
+    description: nil,
+    collection: nil,
+    primary_image: nil,
+    in_stock: false,
+    price: nil
+  }
 
   defp create_product(_) do
     product = product_fixture()

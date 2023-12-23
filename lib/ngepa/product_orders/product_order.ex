@@ -50,8 +50,7 @@ defmodule Ngepa.ProductOrders.ProductOrder do
       :longitude,
       :total_price,
       :color,
-      :product_order_id,
-      
+      :product_order_id
     ])
   end
 end

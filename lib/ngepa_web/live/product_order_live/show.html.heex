@@ -14,7 +14,6 @@
 <% end %>
 
 <ul>
-
   <li>
     <strong>Quantity:</strong>
     <%= @product_order.quantity %>
@@ -74,8 +73,12 @@
     <strong>Product order:</strong>
     <%= @product_order.product_order_id %>
   </li>
-
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.product_order_show_path(@socket, :edit, @product_order), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.product_order_index_path(@socket, :index) %></span>
+<span>
+  <%= live_patch("Edit",
+    to: Routes.product_order_show_path(@socket, :edit, @product_order),
+    class: "button"
+  ) %>
+</span> |
+<span><%= live_redirect("Back", to: Routes.product_order_index_path(@socket, :index)) %></span>

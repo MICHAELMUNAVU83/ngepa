@@ -20,7 +20,7 @@ defmodule NgepaWeb.Router do
   scope "/", NgepaWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", PageLive.Index, :index
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
     live "/products/:id/edit", ProductLive.Index, :edit

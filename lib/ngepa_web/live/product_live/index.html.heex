@@ -37,13 +37,24 @@
         <td><%= product.collection %></td>
 
         <td>
-          <span><%= live_redirect "Show", to: Routes.product_show_path(@socket, :show, product) %></span>
-          <span><%= live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
+          <span>
+            <%= live_redirect("Show", to: Routes.product_show_path(@socket, :show, product)) %>
+          </span>
+          <span>
+            <%= live_patch("Edit", to: Routes.product_index_path(@socket, :edit, product)) %>
+          </span>
+          <span>
+            <%= link("Delete",
+              to: "#",
+              phx_click: "delete",
+              phx_value_id: product.id,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<span><%= live_patch "New Product", to: Routes.product_index_path(@socket, :new) %></span>
+<span><%= live_patch("New Product", to: Routes.product_index_path(@socket, :new)) %></span>

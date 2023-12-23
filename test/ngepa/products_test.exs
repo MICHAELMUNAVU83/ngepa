@@ -8,7 +8,14 @@ defmodule Ngepa.ProductsTest do
 
     import Ngepa.ProductsFixtures
 
-    @invalid_attrs %{name: nil, description: nil, collection: nil, primary_image: nil, in_stock: nil, price: nil}
+    @invalid_attrs %{
+      name: nil,
+      description: nil,
+      collection: nil,
+      primary_image: nil,
+      in_stock: nil,
+      price: nil
+    }
 
     test "list_products/0 returns all products" do
       product = product_fixture()
@@ -21,7 +28,14 @@ defmodule Ngepa.ProductsTest do
     end
 
     test "create_product/1 with valid data creates a product" do
-      valid_attrs = %{name: "some name", description: "some description", collection: "some collection", primary_image: "some primary_image", in_stock: true, price: 42}
+      valid_attrs = %{
+        name: "some name",
+        description: "some description",
+        collection: "some collection",
+        primary_image: "some primary_image",
+        in_stock: true,
+        price: 42
+      }
 
       assert {:ok, %Product{} = product} = Products.create_product(valid_attrs)
       assert product.name == "some name"
@@ -38,7 +52,15 @@ defmodule Ngepa.ProductsTest do
 
     test "update_product/2 with valid data updates the product" do
       product = product_fixture()
-      update_attrs = %{name: "some updated name", description: "some updated description", collection: "some updated collection", primary_image: "some updated primary_image", in_stock: false, price: 43}
+
+      update_attrs = %{
+        name: "some updated name",
+        description: "some updated description",
+        collection: "some updated collection",
+        primary_image: "some updated primary_image",
+        in_stock: false,
+        price: 43
+      }
 
       assert {:ok, %Product{} = product} = Products.update_product(product, update_attrs)
       assert product.name == "some updated name"

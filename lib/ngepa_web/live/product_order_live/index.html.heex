@@ -49,13 +49,30 @@
         <td><%= product_order.product_order_id %></td>
 
         <td>
-          <span><%= live_redirect "Show", to: Routes.product_order_show_path(@socket, :show, product_order) %></span>
-          <span><%= live_patch "Edit", to: Routes.product_order_index_path(@socket, :edit, product_order) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product_order.id, data: [confirm: "Are you sure?"] %></span>
+          <span>
+            <%= live_redirect("Show",
+              to: Routes.product_order_show_path(@socket, :show, product_order)
+            ) %>
+          </span>
+          <span>
+            <%= live_patch("Edit",
+              to: Routes.product_order_index_path(@socket, :edit, product_order)
+            ) %>
+          </span>
+          <span>
+            <%= link("Delete",
+              to: "#",
+              phx_click: "delete",
+              phx_value_id: product_order.id,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<span><%= live_patch "New Product order", to: Routes.product_order_index_path(@socket, :new) %></span>
+<span>
+  <%= live_patch("New Product order", to: Routes.product_order_index_path(@socket, :new)) %>
+</span>
