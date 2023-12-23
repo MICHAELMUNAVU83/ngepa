@@ -26,6 +26,8 @@ defmodule NgepaWeb.Router do
     live "/products/:id/edit", ProductLive.Index, :edit
 
     live "/products/:id", ProductLive.Show, :show
+    live "/products/:id/add_color", ProductLive.Show, :add_color
+    live "/products/:id/edit_color/:color_id", ProductLive.Show, :edit_color
     live "/products/:id/show/edit", ProductLive.Show, :edit
 
     live "/product_orders", ProductOrderLive.Index, :index

@@ -3,10 +3,18 @@ defmodule NgepaWeb.ProductLive.Index do
 
   alias Ngepa.Products
   alias Ngepa.Products.Product
+  alias Ngepa.Accounts
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :products, list_products())}
+  def mount(_params, session, socket) do
+    current_user = Accounts.get_user_by_session_token(session["user_token"])
+    products = Products.list_products()
+
+    {:ok,
+     socket
+     |> assign(:page_title, "Listing Products")
+     |> assign(:current_user, current_user)
+     |> assign(:products, products)}
   end
 
   @impl true

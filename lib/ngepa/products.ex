@@ -35,7 +35,7 @@ defmodule Ngepa.Products do
       ** (Ecto.NoResultsError)
 
   """
-  def get_product!(id), do: Repo.get!(Product, id)
+  def get_product!(id), do: Repo.get!(Product, id) |> Repo.preload(:colors)
 
   @doc """
   Creates a product.

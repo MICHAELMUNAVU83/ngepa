@@ -10,8 +10,8 @@ defmodule Ngepa.Products.Product do
     field :in_stock, :boolean, default: false
     field :price, :integer
     belongs_to :user, Ngepa.Users.User
-    has_many :colors, Ngepa.Products.Color
-    has_many :product_orders, Ngepa.Products.ProductOrder
+    has_many :colors, Ngepa.Colors.Color
+    has_many :product_orders, Ngepa.ProductOrders.ProductOrder
 
     timestamps()
   end

@@ -9,6 +9,7 @@
     phx-change="validate"
     phx-submit="save"
   >
+    <%= hidden_input(f, :user_id, value: @current_user.id) %>
     <%= label(f, :name) %>
     <%= text_input(f, :name) %>
     <%= error_tag(f, :name) %>

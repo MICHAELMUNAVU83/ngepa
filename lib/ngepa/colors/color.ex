@@ -4,6 +4,7 @@ defmodule Ngepa.Colors.Color do
 
   schema "colors" do
     field :name, :string
+    belongs_to :product, Ngepa.Products.Product
 
     timestamps()
   end
@@ -11,7 +12,7 @@ defmodule Ngepa.Colors.Color do
   @doc false
   def changeset(color, attrs) do
     color
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :product_id])
+    |> validate_required([:name, :product_id])
   end
 end
