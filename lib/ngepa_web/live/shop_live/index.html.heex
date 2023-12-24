@@ -1,0 +1,47 @@
+<%= if @live_action in [:buy] do %>
+  <.modal return_to={Routes.shop_index_path(@socket, :index, @product.name)}>
+    <.live_component
+      module={NgepaWeb.ShopLive.Buy}
+      id={:new}
+      title={@page_title}
+      action={@live_action}
+      product={@product}
+      changeset={@changeset}
+      return_to={Routes.shop_index_path(@socket, :index, @product.name)}
+    />
+  </.modal>
+<% end %>
+
+<div>
+  <div
+    class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
+    style="background-image: url('/images/cap.jpg'); background-size: cover; background-position: center;"
+  >
+  </div>
+
+  <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 h-[100vh]">
+    <div class="w-[100%] flex justify-between items-start">
+      <div class="w-[48%] h-[90vh] ">
+        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+      </div>
+      <div class="w-[48%] flex flex-col gap-4">
+        <p>Description</p>
+        <p>Stars</p>
+        <p>Prices</p>
+        <p>Images</p>
+
+        <p>Colors Available</p>
+
+        <span class="flex items-center">
+          <p class="w-[20px] h-[20px] rounded-full bg-red-500" />
+        </span>
+
+        <%= live_redirect to: Routes.shop_index_path(@socket, :buy,  @product.name) do %>
+          <button class="bg-black text-white p-4">
+            Order Now
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,5 +29,6 @@ defmodule Ngepa.Products.Product do
       :collection,
       :user_id
     ])
+    |> unique_constraint(:name)
   end
 end

@@ -37,6 +37,8 @@ defmodule Ngepa.Products do
   """
   def get_product!(id), do: Repo.get!(Product, id) |> Repo.preload(:colors)
 
+  def get_product_by_name!(name), do: Repo.get_by!(Product, name: name) |> Repo.preload(:colors)
+
   @doc """
   Creates a product.
 

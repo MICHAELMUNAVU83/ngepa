@@ -1,4 +1,4 @@
-<main >
+<main>
   <%= if @flash["info"] do %>
     <p
       class="alert alert-info hideMsg"
@@ -20,5 +20,42 @@
       <%= live_flash(@flash, :error) %>
     </p>
   <% end %>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAixNAuiD6Kn7rYUhoa221lcWNPEQaUw04&callback=initMap&v=weekly"
+    defer
+  >
+  </script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCofEHIsoFbtmxqUvDMQgbHTRIfJ1yrARI&libraries=places&callback=initAutoComplete"
+    defer
+  />
+  <div class="flex justify-between  poppins-regular items-center text-xl py-6 w-[100%] px-12">
+    <div class="flex gap-4 items-center">
+      <p>Home</p>
+      <p>Home</p>
+      <p>Home</p>
+    </div>
+    <b class="poppins-bold text-3xl">Ngepa</b>
+    <div class="flex gap-4 items-center">
+      <p>Home</p>
+      <p>Home</p>
+      <p>Home</p>
+    </div>
+  </div>
   <%= @inner_content %>
+  <div class="p-12 bg-orange-200 flex justify-between w-[100%] items-center">
+    <div class="flex flex-col gap-2">
+      <p>fghj ghbjnkml</p>
+      <p>fghj ghbjnkml</p>
+      <p>fghj ghbjnkml</p>
+    </div>
+    <b>SaleHub</b>
+    <div class="flex flex-col gap-2">
+      <p>fghj ghbjnkml</p>
+      <p>fghj ghbjnkml</p>
+      <p>fghj ghbjnkml</p>
+    </div>
+  </div>
 </main>

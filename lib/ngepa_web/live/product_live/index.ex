@@ -10,11 +10,6 @@ defmodule NgepaWeb.ProductLive.Index do
     current_user = Accounts.get_user_by_session_token(session["user_token"])
     products = Products.list_products()
 
-    IO.inspect(Todos.find(:shopping))
-
-    Todos.remove_from_list(:shopping, "milk")
-    IO.inspect(Todos.find(:shopping))
-
     {:ok,
      socket
      |> assign(:page_title, "Listing Products")

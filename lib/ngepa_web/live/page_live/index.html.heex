@@ -1,17 +1,3 @@
-<div class="flex justify-between  poppins-regular items-center text-xl py-6 w-[100%] px-12">
-  <div class="flex gap-4 items-center">
-    <p>Home</p>
-    <p>Home</p>
-    <p>Home</p>
-  </div>
-  <b class="poppins-bold text-3xl">Ngepa</b>
-  <div class="flex gap-4 items-center">
-    <p>Home</p>
-    <p>Home</p>
-    <p>Home</p>
-  </div>
-</div>
-
 <div class="h-[100vh] relative w-[100%] ">
   <img src="/images/cap.jpg" alt="" class="h-[100vh] w-[100%] object-cover" />
 
@@ -92,54 +78,22 @@
   <p class="text-xl font-semibold">Our Catalogue</p>
 
   <div class="w-[100%] grid grid-cols-4">
-    <div class="flex flex-col gap-2 w-[100%]   ">
-      <img
-        src="/images/cap.jpg"
-        alt=""
-        class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
-      />
-      <div class="p-4 flex flex-col gap-2">
-        <p>Title</p>
-        <p>Stars</p>
-        <p>KES 2000/=</p>
-      </div>
-    </div>
-    <div class="flex flex-col gap-2 w-[100%]   ">
-      <img
-        src="/images/cap.jpg"
-        alt=""
-        class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
-      />
-      <div class="p-4 flex flex-col gap-2">
-        <p>Title</p>
-        <p>Stars</p>
-        <p>KES 2000/=</p>
-      </div>
-    </div>
-    <div class="flex flex-col gap-2 w-[100%]   ">
-      <img
-        src="/images/cap.jpg"
-        alt=""
-        class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
-      />
-      <div class="p-4 flex flex-col gap-2">
-        <p>Title</p>
-        <p>Stars</p>
-        <p>KES 2000/=</p>
-      </div>
-    </div>
-    <div class="flex flex-col gap-2 w-[100%]   ">
-      <img
-        src="/images/cap.jpg"
-        alt=""
-        class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
-      />
-      <div class="p-4 flex flex-col gap-2">
-        <p>Title</p>
-        <p>Stars</p>
-        <p>KES 2000/=</p>
-      </div>
-    </div>
+    <%= for product <- @products do %>
+      <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name)  do %>
+        <div class="flex flex-col gap-2 w-[100%]   ">
+          <img
+            src="/images/cap.jpg"
+            alt=""
+            class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
+          />
+          <div class="p-4 flex flex-col gap-2">
+            <p>Title</p>
+            <p>Stars</p>
+            <p>KES 2000/=</p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
@@ -194,19 +148,5 @@
       <img class="h-[250px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
       <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
     </div>
-  </div>
-</div>
-
-<div class="p-12 bg-orange-200 flex justify-between w-[100%] items-center">
-  <div class="flex flex-col gap-2">
-    <p>fghj ghbjnkml</p>
-    <p>fghj ghbjnkml</p>
-    <p>fghj ghbjnkml</p>
-  </div>
-  <b>SaleHub</b>
-  <div class="flex flex-col gap-2">
-    <p>fghj ghbjnkml</p>
-    <p>fghj ghbjnkml</p>
-    <p>fghj ghbjnkml</p>
   </div>
 </div>

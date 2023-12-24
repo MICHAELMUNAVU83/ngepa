@@ -13,5 +13,7 @@ defmodule Ngepa.Repo.Migrations.CreateProducts do
 
       timestamps()
     end
+
+    create_unique_index(:products, [:name])
   end
 end
