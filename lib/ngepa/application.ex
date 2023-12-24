@@ -10,6 +10,7 @@ defmodule Ngepa.Application do
     children = [
       # Start the Ecto repository
       Ngepa.Repo,
+      Ngepa.Todos,
       # Start the Telemetry supervisor
       NgepaWeb.Telemetry,
       # Start the PubSub system
