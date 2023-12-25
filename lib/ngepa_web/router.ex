@@ -23,6 +23,8 @@ defmodule NgepaWeb.Router do
     live "/", PageLive.Index, :index
     live "/shop/:product_name", ShopLive.Index, :index
     live "/shop/:product_name/buy", ShopLive.Index, :buy
+    live "/shop/:product_name/:product_order_id/success", ShopLive.Index, :success
+    live "/shop/:product_name/failed", ShopLive.Index, :failed
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
     live "/products/:id/edit", ProductLive.Index, :edit
@@ -41,9 +43,10 @@ defmodule NgepaWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", NgepaWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", NgepaWeb do
+    pipe_through :api
+    resources "/transactions", TransactionController, except: [:new, :edit]
+  end
 
   # Enables LiveDashboard only for development
   #

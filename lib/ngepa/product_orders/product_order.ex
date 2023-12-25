@@ -52,5 +52,15 @@ defmodule Ngepa.ProductOrders.ProductOrder do
       :color,
       :product_order_id
     ])
+    |> validate_format(
+      :customer_phone_number,
+      ~r/^254\d{9}$/,
+      message: "Number has to start with 254 and have 12 digits"
+    )
+    |> validate_format(
+      :customer_email,
+      ~r/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+      message: "Invalid email format"
+    )
   end
 end

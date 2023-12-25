@@ -19,6 +19,7 @@ defmodule NgepaWeb.ShopLive.Buy do
               <div class="flex flex-col gap-2">
                 <%= hidden_input(f, :latitude, id: "delivery_latitude_product_order") %>
                 <%= hidden_input(f, :longitude, id: "delivery_longitude_product_order") %>
+                <%= hidden_input(f, :product_id, value: @product.id) %>
 
                 <div class="w-[100%] flex md:flex-row flex-col gap-2 justify-between">
                   <div class="flex flex-col gap-2  w-[100%] md:w-[48%]">
@@ -46,29 +47,44 @@ defmodule NgepaWeb.ShopLive.Buy do
                 </div>
 
                 <div class="flex flex-col gap-2 w-[100%]">
-                  <%= label(f, :customer_phone_number, class: "text-xl font-semibold") %>
-                  <%= text_input(f, :customer_phone_number,
-                    placeholder: "Enter your mpesa phone number",
-                    class:
-                      "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
-                  ) %>
-                  <p class="text-red-500 text-xs">
-                    Ensure the number is of the format 2547XXXXXXXX
-                  </p>
-                  <p class="my-2">
-                    <%= error_tag(f, :customer_phone_number) %>
-                  </p>
+                  <div class="flex flex-col gap-2  w-[100%] ">
+                    <%= label(f, :customer_phone_number, class: "text-xl font-semibold") %>
+                    <%= text_input(f, :customer_phone_number,
+                      placeholder: "Enter your mpesa phone number",
+                      class:
+                        "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+                    ) %>
+                    <p class="text-red-500 text-xs">
+                      Ensure the number is of the format 2547XXXXXXXX
+                    </p>
+                    <p class="my-2">
+                      <%= error_tag(f, :customer_phone_number) %>
+                    </p>
+                  </div>
                 </div>
-                <div class="flex flex-col gap-2 w-[100%]">
-                  <%= label(f, :quantity, class: "text-xl font-semibold") %>
-                  <%= select(f, :quantity, [1, 2, 3, 4, 5, 6, 7],
-                    prompt: "Select quantity",
-                    class:
-                      "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
-                  ) %>
-                  <p class="my-2">
-                    <%= error_tag(f, :quantity) %>
-                  </p>
+                <div class="w-[100%] flex md:flex-row flex-col gap-2 justify-between">
+                  <div class="flex flex-col gap-2  w-[100%] md:w-[48%]">
+                    <%= label(f, :color, class: "text-xl font-semibold") %>
+                    <%= select(f, :color, @colors,
+                      prompt: "Select color",
+                      class:
+                        "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+                    ) %>
+                    <p class="my-2">
+                      <%= error_tag(f, :customer_name) %>
+                    </p>
+                  </div>
+                  <div class="flex flex-col gap-2 md:w-[48%]  w-[100%]">
+                    <%= label(f, :quantity, class: "text-xl font-semibold") %>
+                    <%= select(f, :quantity, [1, 2, 3, 4, 5, 6, 7],
+                      prompt: "Select quantity",
+                      class:
+                        "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+                    ) %>
+                    <p class="my-2">
+                      <%= error_tag(f, :quantity) %>
+                    </p>
+                  </div>
                 </div>
                 <div id="ProductLocation" phx-hook="ProductLocation" class="flex flex-col gap-2">
                   <%= label(f, :location, class: "text-xl font-semibold") %>

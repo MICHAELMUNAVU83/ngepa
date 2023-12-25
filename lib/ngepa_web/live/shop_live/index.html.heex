@@ -6,7 +6,32 @@
       title={@page_title}
       action={@live_action}
       product={@product}
+      colors={@colors}
       changeset={@changeset}
+      return_to={Routes.shop_index_path(@socket, :index, @product.name)}
+    />
+  </.modal>
+<% end %>
+
+<%= if @live_action in [:success] do %>
+  <.modal return_to={Routes.shop_index_path(@socket, :index, @product.name)}>
+    <.live_component
+      module={NgepaWeb.ShopLive.Success}
+      id={:success}
+      title={@page_title}
+      action={@live_action}
+      return_to={Routes.shop_index_path(@socket, :index, @product.name)}
+    />
+  </.modal>
+<% end %>
+
+<%= if @live_action in [:failed] do %>
+  <.modal return_to={Routes.shop_index_path(@socket, :index, @product.name)}>
+    <.live_component
+      module={NgepaWeb.ShopLive.Failed}
+      id={:success}
+      title={@page_title}
+      action={@live_action}
       return_to={Routes.shop_index_path(@socket, :index, @product.name)}
     />
   </.modal>

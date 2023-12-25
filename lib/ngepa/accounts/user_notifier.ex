@@ -4,7 +4,7 @@ defmodule Ngepa.Accounts.UserNotifier do
   alias Ngepa.Mailer
 
   # Delivers the email using the application mailer.
-  defp deliver(recipient, subject, body) do
+  def deliver(recipient, subject, body) do
     email =
       new()
       |> to(recipient)
