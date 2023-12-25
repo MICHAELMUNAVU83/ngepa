@@ -166,7 +166,7 @@ defmodule Ngepa.Chpter do
   """
 
   def check_for_payment(transaction_reference, api_endpoint) do
-    case IO.inspect(HTTPoison.get(api_endpoint, timeout: 150_000, recv_timeout: 150_000)) do
+    case HTTPoison.get(api_endpoint, [], timeout: 150_000, recv_timeout: 150_000) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         customer_record =
           Jason.decode!(body)["data"]
@@ -181,7 +181,7 @@ defmodule Ngepa.Chpter do
         end
 
       _ ->
-        "Error"
+        %{message: "Payment not found", success: false}
     end
   end
 

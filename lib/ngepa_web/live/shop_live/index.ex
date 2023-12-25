@@ -31,14 +31,14 @@ defmodule NgepaWeb.ShopLive.Index do
     #        "test@gmail.com",
     #        1,
     #        "juja",
-    #        "https://90ea-105-160-50-193.ngrok-free.app/api/transactions",
+    #        "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions",
     #        transaction_reference
     #      ) do
     #   {:ok, %HTTPoison.Response{status_code: 200, body: _body}} ->
     #     customer_record =
     #       Chpter.check_for_payment(
     #         transaction_reference,
-    #         "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+    #         "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
     #       )
 
     #     IO.inspect(customer_record)
@@ -47,7 +47,7 @@ defmodule NgepaWeb.ShopLive.Index do
     # customer_record =
     #   Chpter.check_for_payment(
     #     "120237695961225084340254740",
-    #     "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+    #     "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
     #   )
 
     IO.inspect(
@@ -58,7 +58,7 @@ defmodule NgepaWeb.ShopLive.Index do
         "test@gmail.com",
         1,
         "juja",
-        "https://0ac1-105-160-50-193.ngrok-free.app/api/transactions",
+        "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions",
         transaction_reference
       )
     )
@@ -66,7 +66,7 @@ defmodule NgepaWeb.ShopLive.Index do
     customer_record =
       Chpter.check_for_payment(
         transaction_reference,
-        "https://0ac1-105-160-50-193.ngrok-free.app/api/transactions"
+        "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
       )
 
     IO.inspect(customer_record)
@@ -159,7 +159,7 @@ defmodule NgepaWeb.ShopLive.Index do
              product_order_params["customer_email"],
              1,
              product_order_params["location"],
-             "https://90ea-105-160-50-193.ngrok-free.app/api/transactions",
+             "https://2438-105-160-50-193.ngrok-free.app/api/transactions",
              transaction_reference
            )
          ) do
@@ -167,7 +167,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+            "https://2438-105-160-50-193.ngrok-free.app/api/transactions/"
           )
 
         if customer_record["success"] == true do
@@ -199,9 +199,10 @@ defmodule NgepaWeb.ShopLive.Index do
                )
                |> push_redirect(
                  to:
-                   Routes.product_order_show_path(
-                     MwambaRfcWeb.Endpoint,
-                     :show,
+                   Routes.shop_index_path(
+                     NgepaWeb.Endpoint,
+                     :success,
+                     product.name,
                      transaction_reference
                    )
                )}
@@ -214,9 +215,8 @@ defmodule NgepaWeb.ShopLive.Index do
                  to:
                    Routes.shop_index_path(
                      NgepaWeb.Endpoint,
-                     :success,
-                     product.name,
-                     transaction_reference
+                     :failed,
+                     product.name
                    )
                )}
           end
@@ -238,7 +238,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+            "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
           )
 
         if customer_record["success"] == true do
