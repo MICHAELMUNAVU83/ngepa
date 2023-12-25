@@ -31,14 +31,24 @@ defmodule NgepaWeb.ShopLive.Index do
     #        "test@gmail.com",
     #        1,
     #        "juja",
+    #        "https://90ea-105-160-50-193.ngrok-free.app/api/transactions",
     #        transaction_reference
     #      ) do
     #   {:ok, %HTTPoison.Response{status_code: 200, body: _body}} ->
     #     customer_record =
-    #       Chpter.check_for_payment(transaction_reference)
+    #       Chpter.check_for_payment(
+    #         transaction_reference,
+    #         "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+    #       )
 
     #     IO.inspect(customer_record)
     # end
+
+    # customer_record =
+    #   Chpter.check_for_payment(
+    #     "120237695961225084340254740",
+    #     "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+    #   )
 
     IO.inspect(
       Chpter.initiate_payment(
@@ -48,7 +58,7 @@ defmodule NgepaWeb.ShopLive.Index do
         "test@gmail.com",
         1,
         "juja",
-        "https://7470-105-160-72-224.ngrok-free.app/api/transactions",
+        "https://0ac1-105-160-50-193.ngrok-free.app/api/transactions",
         transaction_reference
       )
     )
@@ -56,7 +66,7 @@ defmodule NgepaWeb.ShopLive.Index do
     customer_record =
       Chpter.check_for_payment(
         transaction_reference,
-        "https://7470-105-160-72-224.ngrok-free.app/api/transactions"
+        "https://0ac1-105-160-50-193.ngrok-free.app/api/transactions"
       )
 
     IO.inspect(customer_record)
@@ -149,33 +159,37 @@ defmodule NgepaWeb.ShopLive.Index do
              product_order_params["customer_email"],
              1,
              product_order_params["location"],
+             "https://90ea-105-160-50-193.ngrok-free.app/api/transactions",
              transaction_reference
            )
          ) do
       {:ok, %HTTPoison.Response{status_code: 200, body: _body}} ->
         customer_record =
-          Chpter.check_for_payment("120237695961225072826254740")
+          Chpter.check_for_payment(
+            transaction_reference,
+            "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+          )
 
         if customer_record["success"] == true do
           case ProductOrders.create_product_order(new_product_order_params) do
             {:ok, _product_order} ->
-              Notify.send_product_order_as_sms(
-                product_order_params["customer_phone_number"],
-                product_order_params["customer_name"],
-                product.name,
-                product_order_params["quantity"],
-                product_order_params["location"],
-                "https://mwambarugby.com/product_orders/#{transaction_reference}"
-              )
+              # Notify.send_product_order_as_sms(
+              #   product_order_params["customer_phone_number"],
+              #   product_order_params["customer_name"],
+              #   product.name,
+              #   product_order_params["quantity"],
+              #   product_order_params["location"],
+              #   "https://mwambarugby.com/product_orders/#{transaction_reference}"
+              # )
 
-              Notify.send_product_order_as_email(
-                product_order_params["customer_email"],
-                product_order_params["customer_name"],
-                product.name,
-                product_order_params["quantity"],
-                product_order_params["location"],
-                "https://mwambarugby.com/product_orders/#{transaction_reference}"
-              )
+              # Notify.send_product_order_as_email(
+              #   product_order_params["customer_email"],
+              #   product_order_params["customer_name"],
+              #   product.name,
+              #   product_order_params["quantity"],
+              #   product_order_params["location"],
+              #   "https://mwambarugby.com/product_orders/#{transaction_reference}"
+              # )
 
               {:noreply,
                socket
@@ -200,8 +214,9 @@ defmodule NgepaWeb.ShopLive.Index do
                  to:
                    Routes.shop_index_path(
                      NgepaWeb.Endpoint,
-                     :failed,
-                     product.name
+                     :success,
+                     product.name,
+                     transaction_reference
                    )
                )}
           end
@@ -213,37 +228,39 @@ defmodule NgepaWeb.ShopLive.Index do
              to:
                Routes.shop_index_path(
                  NgepaWeb.Endpoint,
-                 :success,
-                 product.name,
-                 transaction_reference
+                 :failed,
+                 product.name
                )
            )}
         end
 
       {:error, %HTTPoison.Error{reason: :timeout, id: nil}} ->
         customer_record =
-          Chpter.check_for_payment(transaction_reference)
+          Chpter.check_for_payment(
+            transaction_reference,
+            "https://90ea-105-160-50-193.ngrok-free.app/api/transactions"
+          )
 
         if customer_record["success"] == true do
           case ProductOrders.create_product_order(new_product_order_params) do
             {:ok, _product_order} ->
-              Notify.send_product_order_as_sms(
-                product_order_params["customer_phone_number"],
-                product_order_params["customer_name"],
-                product.name,
-                product_order_params["quantity"],
-                product_order_params["location"],
-                "https://mwambarugby.com/product_orders/#{transaction_reference}"
-              )
+              # Notify.send_product_order_as_sms(
+              #   product_order_params["customer_phone_number"],
+              #   product_order_params["customer_name"],
+              #   product.name,
+              #   product_order_params["quantity"],
+              #   product_order_params["location"],
+              #   "https://mwambarugby.com/product_orders/#{transaction_reference}"
+              # )
 
-              Notify.send_product_order_as_email(
-                product_order_params["customer_email"],
-                product_order_params["customer_name"],
-                product.name,
-                product_order_params["quantity"],
-                product_order_params["location"],
-                "https://mwambarugby.com/product_orders/#{transaction_reference}"
-              )
+              # Notify.send_product_order_as_email(
+              #   product_order_params["customer_email"],
+              #   product_order_params["customer_name"],
+              #   product.name,
+              #   product_order_params["quantity"],
+              #   product_order_params["location"],
+              #   "https://mwambarugby.com/product_orders/#{transaction_reference}"
+              # )
 
               {:noreply,
                socket

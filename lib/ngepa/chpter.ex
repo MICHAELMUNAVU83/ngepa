@@ -166,19 +166,22 @@ defmodule Ngepa.Chpter do
   """
 
   def check_for_payment(transaction_reference, api_endpoint) do
-    body = HTTPoison.get!(api_endpoint)
+    case IO.inspect(HTTPoison.get(api_endpoint, timeout: 150_000, recv_timeout: 150_000)) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        customer_record =
+          Jason.decode!(body)["data"]
+          |> Enum.find(fn record ->
+            record["transaction_reference"] == transaction_reference
+          end)
 
-    customer_record =
-      Jason.decode!(body.body)["data"]
-      |> Enum.find(fn record -> record["transaction_reference"] == transaction_reference end)
+        if customer_record != nil do
+          customer_record
+        else
+          check_for_payment(transaction_reference, api_endpoint)
+        end
 
-    customer_record
-
-    if customer_record != nil do
-      customer_record
-    else
-      Process.sleep(1000)
-      check_for_payment(transaction_reference, api_endpoint)
+      _ ->
+        "Error"
     end
   end
 

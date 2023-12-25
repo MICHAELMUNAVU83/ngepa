@@ -34,8 +34,6 @@ defmodule NgepaWeb.TransactionController do
       "transaction_reference" => transaction_params["transaction_reference"]
     }
 
-    IO.inspect(new_transaction_params)
-
     with {:ok, %Transaction{} = transaction} <-
            Transactions.create_transaction(new_transaction_params) do
       conn
