@@ -46,6 +46,7 @@ defmodule Ngepa.Chpter do
         email,
         amount,
         location,
+        callback_url,
         transaction_reference
       ) do
     header = header(api_key)
@@ -57,6 +58,7 @@ defmodule Ngepa.Chpter do
         name,
         location,
         amount,
+        callback_url,
         transaction_reference
       )
 
@@ -109,6 +111,7 @@ defmodule Ngepa.Chpter do
          name,
          location,
          amount,
+         callback_url,
          transaction_reference
        ) do
     %{
@@ -127,7 +130,7 @@ defmodule Ngepa.Chpter do
       },
       callback_details: %{
         "transaction_reference" => transaction_reference,
-        "callback_url" => get_api_endpoint()
+        "callback_url" => callback_url
       }
     }
   end
@@ -162,24 +165,21 @@ defmodule Ngepa.Chpter do
   ```
   """
 
-  def check_for_payment(transaction_reference) do
-    api_endpoint = get_api_endpoint()
+  def check_for_payment(transaction_reference, api_endpoint) do
     body = HTTPoison.get!(api_endpoint)
 
     customer_record =
       Jason.decode!(body.body)["data"]
       |> Enum.find(fn record -> record["transaction_reference"] == transaction_reference end)
 
+    customer_record
+
     if customer_record != nil do
       customer_record
     else
       Process.sleep(1000)
-      check_for_payment(transaction_reference)
+      check_for_payment(transaction_reference, api_endpoint)
     end
-  end
-
-  def get_api_endpoint do
-    "https://16f5-105-160-72-224.ngrok-free.app/api/transactions"
   end
 
   @doc """
@@ -244,18 +244,18 @@ defmodule Ngepa.Chpter do
   ```
   """
 
-  def withdraw(name, email, phone_number, amount, payout_reference, api_key) do
+  def withdraw(name, email, phone_number, amount, callback_url, payout_reference, api_key) do
     header = header(api_key)
     url = "https://api.chpter.co/v1/payout/mobile-wallet"
 
-    body = withdrawal_body(name, email, phone_number, amount, payout_reference)
+    body = withdrawal_body(name, email, phone_number, amount, callback_url, payout_reference)
 
     request_body = Jason.encode!(body)
 
     HTTPoison.post(url, request_body, header)
   end
 
-  defp withdrawal_body(name, email, phone_number, amount, payout_reference) do
+  defp withdrawal_body(name, email, phone_number, amount, callback_url, payout_reference) do
     %{
       client_details: %{
         "full_name" => name,
@@ -274,7 +274,7 @@ defmodule Ngepa.Chpter do
       callback_details: %{
         "notify_customer" => true,
         "payout_reference" => payout_reference,
-        "callback_url" => get_api_endpoint()
+        "callback_url" => callback_url
       }
     }
   end

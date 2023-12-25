@@ -17,6 +17,55 @@ defmodule NgepaWeb.ShopLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
+  def handle_event("hey", _, socket) do
+    transaction_reference =
+      TransactionAlgorithim.code_reference_for_product_order(
+        "1",
+        "254740769596"
+      )
+
+    # case Chpter.initiate_payment(
+    #        "pk_0b51e48bc6ac135ce3f65b1355248cae71ef085c0223bc0273535a4e174dce07",
+    #        "254740769596",
+    #        "John Doe",
+    #        "test@gmail.com",
+    #        1,
+    #        "juja",
+    #        transaction_reference
+    #      ) do
+    #   {:ok, %HTTPoison.Response{status_code: 200, body: _body}} ->
+    #     customer_record =
+    #       Chpter.check_for_payment(transaction_reference)
+
+    #     IO.inspect(customer_record)
+    # end
+
+    IO.inspect(
+      Chpter.initiate_payment(
+        "pk_0b51e48bc6ac135ce3f65b1355248cae71ef085c0223bc0273535a4e174dce07",
+        "254740769596",
+        "John Doe",
+        "test@gmail.com",
+        1,
+        "juja",
+        "https://7470-105-160-72-224.ngrok-free.app/api/transactions",
+        transaction_reference
+      )
+    )
+
+    customer_record =
+      Chpter.check_for_payment(
+        transaction_reference,
+        "https://7470-105-160-72-224.ngrok-free.app/api/transactions"
+      )
+
+    IO.inspect(customer_record)
+
+    {:noreply,
+     socket
+     |> put_flash(:info, "Hey there")}
+  end
+
   defp apply_action(socket, :index, %{"product_name" => product_name}) do
     product = Products.get_product_by_name!(product_name)
 
@@ -103,9 +152,9 @@ defmodule NgepaWeb.ShopLive.Index do
              transaction_reference
            )
          ) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+      {:ok, %HTTPoison.Response{status_code: 200, body: _body}} ->
         customer_record =
-          Chpter.check_for_payment(transaction_reference)
+          Chpter.check_for_payment("120237695961225072826254740")
 
         if customer_record["success"] == true do
           case ProductOrders.create_product_order(new_product_order_params) do
