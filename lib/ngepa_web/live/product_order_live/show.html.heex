@@ -31,7 +31,7 @@
 <div class="bg-gray-100  w-[100%] py-16">
   <div class="  flex flex-col gap-4   w-[95%]  mx-auto">
     <%= if @user_signed_in == true do %>
-      <%= if @current_user.role == "admin" do %>
+      <%= if @current_user.role == "admin" || @current_user.role == "delivery_agent" do %>
         <div class="flex gap-4">
           <div class="flex items-start">
             <%= live_patch("Change Status",
@@ -264,7 +264,8 @@
     >
     </div>
     <%= if @user_signed_in == true do %>
-      <%= if @current_user.role == "admin" do %>
+      <%= if @current_user.role == "admin" ||
+       @current_user.role =="delivery_agent" do %>
         <p class="poppins-bold text-xl">
           Messages to customer
         </p>
