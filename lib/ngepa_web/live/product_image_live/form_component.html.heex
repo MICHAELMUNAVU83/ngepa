@@ -11,9 +11,15 @@
   >
     <%= hidden_input(f, :product_id, value: @product.id) %>
 
-    <%= label(f, :image_url) %>
-    <%= text_input(f, :image_url) %>
-    <%= error_tag(f, :image_url) %>
+    <%= label(f, :image) %>
+    <%= live_file_input(@uploads.image) %>
+
+    <%= for entry <- @uploads.image.entries do %>
+      <%= live_img_preview(entry, style: "max-width: 200px; max-height: 200px;") %>
+      <button phx-click="cancel-upload" phx-value-ref={entry.ref}>
+        Cancel
+      </button>
+    <% end %>
 
     <div>
       <%= submit("Save", phx_disable_with: "Saving...") %>

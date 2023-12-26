@@ -10,6 +10,8 @@ defmodule NgepaWeb.ProductImageLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:uploaded_files, [])
+     |> allow_upload(:image, accept: ~w(.jpg .png .jpeg), max_entries: 1)
      |> assign(:changeset, changeset)}
   end
 
@@ -24,7 +26,28 @@ defmodule NgepaWeb.ProductImageLive.FormComponent do
   end
 
   def handle_event("save", %{"product_image" => product_image_params}, socket) do
-    save_product_image(socket, socket.assigns.action, product_image_params)
+    uploaded_files =
+      consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
+        dest = Path.join([:code.priv_dir(:ngepa), "static", "uploads", Path.basename(path)])
+
+        # The `static/uploads` directory must exist for `File.cp!/2`
+        # and MyAppWeb.static_paths/0 should contain uploads to work,.
+        File.cp!(path, dest)
+        {:ok, "/uploads/" <> Path.basename(dest)}
+      end)
+
+    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+    full_url = "priv/static" <> List.first(uploaded_files)
+
+    {:ok, data} =
+      Cloudex.upload(full_url)
+
+    new_product_image_params =
+      Map.put(product_image_params, "image_url", data.secure_url)
+
+    File.rm(full_url)
+
+    save_product_image(socket, socket.assigns.action, new_product_image_params)
   end
 
   defp save_product_image(socket, :edit_product_image, product_image_params) do
