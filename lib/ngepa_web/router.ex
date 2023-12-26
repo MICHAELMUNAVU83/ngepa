@@ -52,13 +52,6 @@ defmodule NgepaWeb.Router do
 
     live "/product_orders/:id", ProductOrderLive.Show, :show
     live "/product_orders/:id/show/edit", ProductOrderLive.Show, :edit
-
-    live "/product_order_messages", ProductOrderMessageLive.Index, :index
-    live "/product_order_messages/new", ProductOrderMessageLive.Index, :new
-    live "/product_order_messages/:id/edit", ProductOrderMessageLive.Index, :edit
-
-    live "/product_order_messages/:id", ProductOrderMessageLive.Show, :show
-    live "/product_order_messages/:id/show/edit", ProductOrderMessageLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
