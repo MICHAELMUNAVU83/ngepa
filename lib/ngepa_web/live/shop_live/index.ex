@@ -101,7 +101,7 @@ defmodule NgepaWeb.ShopLive.Index do
              product_order_params["customer_email"],
              1,
              product_order_params["location"],
-             "https://6ae8-105-61-44-84.ngrok-free.app/api/transactions",
+             "https://dc4d-105-61-44-84.ngrok-free.app/api/transactions",
              transaction_reference
            )
          ) do
@@ -109,7 +109,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://6ae8-105-61-44-84.ngrok-free.app/api/transactions"
+            "https://dc4d-105-61-44-84.ngrok-free.app/api/transactions"
           )
 
         if customer_record["success"] == true do
@@ -182,7 +182,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://6ae8-105-61-44-84.ngrok-free.app/api/transactions"
+            "https://dc4d-105-61-44-84.ngrok-free.app/api/transactions"
           )
 
         if customer_record["success"] == true do

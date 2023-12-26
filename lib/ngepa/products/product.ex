@@ -13,6 +13,7 @@ defmodule Ngepa.Products.Product do
     has_many :colors, Ngepa.Colors.Color
     has_many :product_images, Ngepa.ProductImages.ProductImage
     has_many :product_orders, Ngepa.ProductOrders.ProductOrder
+    has_many :transactions, Ngepa.Transactions.Transaction
 
     timestamps()
   end
