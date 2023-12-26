@@ -35,7 +35,8 @@ defmodule Ngepa.Products do
       ** (Ecto.NoResultsError)
 
   """
-  def get_product!(id), do: Repo.get!(Product, id) |> Repo.preload(:colors)
+  def get_product!(id),
+    do: Repo.get!(Product, id) |> Repo.preload(:colors) |> Repo.preload(:product_images)
 
   def get_product_by_name!(name), do: Repo.get_by!(Product, name: name) |> Repo.preload(:colors)
 

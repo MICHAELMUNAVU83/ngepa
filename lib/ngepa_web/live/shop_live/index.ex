@@ -115,23 +115,25 @@ defmodule NgepaWeb.ShopLive.Index do
         if customer_record["success"] == true do
           case ProductOrders.create_product_order(new_product_order_params) do
             {:ok, _product_order} ->
-              # Notify.send_product_order_as_sms(
-              #   product_order_params["customer_phone_number"],
-              #   product_order_params["customer_name"],
-              #   product.name,
-              #   product_order_params["quantity"],
-              #   product_order_params["location"],
-              #   "https://mwambarugby.com/product_orders/#{transaction_reference}"
-              # )
+              Notify.send_product_order_as_sms(
+                product_order_params["customer_phone_number"],
+                product_order_params["customer_name"],
+                product.name,
+                product_order_params["color"],
+                product_order_params["quantity"],
+                product_order_params["location"],
+                "https://mwambarugby.com/product_orders/#{transaction_reference}"
+              )
 
-              # Notify.send_product_order_as_email(
-              #   product_order_params["customer_email"],
-              #   product_order_params["customer_name"],
-              #   product.name,
-              #   product_order_params["quantity"],
-              #   product_order_params["location"],
-              #   "https://mwambarugby.com/product_orders/#{transaction_reference}"
-              # )
+              Notify.send_product_order_as_email(
+                product_order_params["customer_email"],
+                product_order_params["customer_name"],
+                product.name,
+                product_order_params["color"],
+                product_order_params["quantity"],
+                product_order_params["location"],
+                "https://mwambarugby.com/product_orders/#{transaction_reference}"
+              )
 
               {:noreply,
                socket

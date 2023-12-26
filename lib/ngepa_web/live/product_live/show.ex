@@ -5,6 +5,8 @@ defmodule NgepaWeb.ProductLive.Show do
   alias Ngepa.Accounts
   alias Ngepa.Colors.Color
   alias Ngepa.Colors
+  alias Ngepa.ProductImages
+  alias Ngepa.ProductImages.ProductImage
 
   @impl true
   def mount(_params, session, socket) do
@@ -21,6 +23,8 @@ defmodule NgepaWeb.ProductLive.Show do
 
     colors = product.colors
 
+    product_images = product.product_images
+
     color =
       case params["color_id"] do
         nil ->
@@ -30,9 +34,20 @@ defmodule NgepaWeb.ProductLive.Show do
           Colors.get_color!(color_id)
       end
 
+    product_image =
+      case params["product_image_id"] do
+        nil ->
+          %ProductImage{}
+
+        product_image_id ->
+          ProductImages.get_product_image!(product_image_id)
+      end
+
     {:noreply,
      socket
      |> assign(:color, color)
+     |> assign(:product_image, product_image)
+     |> assign(:product_images, product_images)
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:product, product)
      |> assign(:colors, colors)}
@@ -53,5 +68,7 @@ defmodule NgepaWeb.ProductLive.Show do
   defp page_title(:show), do: "Show Product"
   defp page_title(:add_color), do: "Add Color"
   defp page_title(:edit_color), do: "Edit Color"
+  defp page_title(:add_product_image), do: "Add Product Image"
+  defp page_title(:edit_product_image), do: "Edit Product Image"
   defp page_title(:edit), do: "Edit Product"
 end

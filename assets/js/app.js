@@ -82,6 +82,62 @@ Hooks.ProductLocation = {
   },
 };
 
+Hooks.LocationMap = {
+  mounted() {
+    const lat = document.getElementById("product-order-latitude").innerText;
+    const lng = document.getElementById("product-order-longitude").innerText;
+
+    function initMap() {
+      const map = new google.maps.Map(
+        document.getElementById("product-order-map"),
+        {
+          center: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng),
+          },
+          zoom: 8,
+        }
+      );
+      new google.maps.Marker({
+        position: {
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+        },
+        map,
+        title: "Hello World!",
+      });
+    }
+    initMap();
+  },
+
+  updated() {
+    const lat = document.getElementById("product-order-latitude").innerText;
+    const lng = document.getElementById("product-order-longitude").innerText;
+
+    function initMap() {
+      const map = new google.maps.Map(
+        document.getElementById("product-order-map"),
+        {
+          center: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng),
+          },
+          zoom: 8,
+        }
+      );
+      new google.maps.Marker({
+        position: {
+          lat: parseFloat(lat),
+          lng: parseFloat(lng),
+        },
+        map,
+        title: "Hello World!",
+      });
+    }
+    initMap();
+  },
+};
+
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });
 window.addEventListener("phx:page-loading-start", (info) => topbar.show());

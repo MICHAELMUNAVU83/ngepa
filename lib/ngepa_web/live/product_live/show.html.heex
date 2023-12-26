@@ -25,6 +25,20 @@
     />
   </.modal>
 <% end %>
+
+<%= if @live_action in [:add_product_image, :edit_product_image] do %>
+  <.modal return_to={Routes.product_show_path(@socket, :show, @product)}>
+    <.live_component
+      module={NgepaWeb.ProductImageLive.FormComponent}
+      id={:editimage}
+      title={@page_title}
+      action={@live_action}
+      product={@product}
+      product_image={@product_image}
+      return_to={Routes.product_show_path(@socket, :show, @product)}
+    />
+  </.modal>
+<% end %>
 <div>
   <div
     class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
@@ -49,6 +63,10 @@
           <button class="bg-black text-white p-4">Add Color</button>
         <% end %>
 
+        <%= live_patch(to: Routes.product_show_path(@socket, :add_product_image, @product)) do %>
+          <button class="bg-black text-white p-4">Add Images</button>
+        <% end %>
+
         <table>
           <thead>
             <tr>
@@ -69,8 +87,46 @@
                   <span>
                     <%= link("Delete",
                       to: "#",
-                      phx_click: "delete",
+                      phx_click: "delete_color",
                       phx_value_id: color.id,
+                      phx_value_product_id: @product.id,
+                      data: [confirm: "Are you sure?"]
+                    ) %>
+                  </span>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="products">
+            <%= for product_image <- @product_images do %>
+              <tr>
+                <td><%= product_image.image_url %></td>
+                <td>
+                  <span>
+                    <%= live_patch("Edit",
+                      to:
+                        Routes.product_show_path(
+                          @socket,
+                          :edit_product_image,
+                          product_image.id,
+                          @product.id
+                        )
+                    ) %>
+                  </span>
+                  <span>
+                    <%= link("Delete",
+                      to: "#",
+                      phx_click: "delete_product_image",
+                      phx_value_id: product_image.id,
                       phx_value_product_id: @product.id,
                       data: [confirm: "Are you sure?"]
                     ) %>

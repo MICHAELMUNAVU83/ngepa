@@ -32,7 +32,16 @@ defmodule NgepaWeb.Router do
     live "/products/:id", ProductLive.Show, :show
     live "/products/:id/add_color", ProductLive.Show, :add_color
     live "/products/:id/edit_color/:color_id", ProductLive.Show, :edit_color
+    live "/products/:id/add_product_image", ProductLive.Show, :add_product_image
+
+    live "/products/:id/edit_product_image/:product_image_id",
+         ProductLive.Show,
+         :edit_product_image
+
     live "/products/:id/show/edit", ProductLive.Show, :edit
+
+    live "/product_orders/:id/show/edit", ProductOrderLive.Show, :edit_on_show
+    live "/product_orders/:id/new/message", ProductOrderLive.Show, :new_message
 
     live "/product_orders", ProductOrderLive.Index, :index
     live "/product_orders/new", ProductOrderLive.Index, :new
@@ -40,6 +49,13 @@ defmodule NgepaWeb.Router do
 
     live "/product_orders/:id", ProductOrderLive.Show, :show
     live "/product_orders/:id/show/edit", ProductOrderLive.Show, :edit
+
+    live "/product_order_messages", ProductOrderMessageLive.Index, :index
+    live "/product_order_messages/new", ProductOrderMessageLive.Index, :new
+    live "/product_order_messages/:id/edit", ProductOrderMessageLive.Index, :edit
+
+    live "/product_order_messages/:id", ProductOrderMessageLive.Show, :show
+    live "/product_order_messages/:id/show/edit", ProductOrderMessageLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

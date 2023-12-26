@@ -11,6 +11,7 @@ defmodule Ngepa.Products.Product do
     field :price, :integer
     belongs_to :user, Ngepa.Users.User
     has_many :colors, Ngepa.Colors.Color
+    has_many :product_images, Ngepa.ProductImages.ProductImage
     has_many :product_orders, Ngepa.ProductOrders.ProductOrder
 
     timestamps()

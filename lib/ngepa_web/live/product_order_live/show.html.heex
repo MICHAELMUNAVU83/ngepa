@@ -1,85 +1,361 @@
-<h1>Show Product order</h1>
-
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.product_order_show_path(@socket, :show, @product_order)}>
+<%= if @live_action in [:edit_on_show] do %>
+  <.modal return_to={
+    Routes.product_order_show_path(@socket, :show, @product_order.product_order_id)
+  }>
     <.live_component
-      module={NgepaWeb.ProductOrderLive.FormComponent}
+      module={NgepaWeb.ProductOrderLive.Edit}
       id={@product_order.id}
       title={@page_title}
       action={@live_action}
       product_order={@product_order}
-      return_to={Routes.product_order_show_path(@socket, :show, @product_order)}
+      return_to={Routes.product_order_show_path(@socket, :show, @product_order.product_order_id)}
+    />
+  </.modal>
+<% end %>
+<%= if @live_action in [:new_message] do %>
+  <.modal return_to={
+    Routes.product_order_show_path(@socket, :show, @product_order.product_order_id)
+  }>
+    <.live_component
+      module={NgepaWeb.ProductOrderMessageLive.FormComponent}
+      id={@product_order_message.id || :new_message}
+      title={@page_title}
+      action={@live_action}
+      product_order_message={@product_order_message}
+      product_order={@product_order}
+      return_to={Routes.product_order_show_path(@socket, :show, @product_order.product_order_id)}
     />
   </.modal>
 <% end %>
 
-<ul>
-  <li>
-    <strong>Quantity:</strong>
-    <%= @product_order.quantity %>
-  </li>
+<div class="bg-gray-100  w-[100%] py-16">
+  <div class="  flex flex-col gap-4   w-[95%]  mx-auto">
+    <%= if @user_signed_in == true do %>
+      <%= if @current_user.role == "admin" do %>
+        <div class="flex gap-4">
+          <div class="flex items-start">
+            <%= live_patch("Change Status",
+              to:
+                Routes.product_order_show_path(
+                  @socket,
+                  :edit_on_show,
+                  @product_order.product_order_id
+                ),
+              class: "bg-black p-4 text-white poppins-bold"
+            ) %>
+          </div>
+          <div class="flex items-start">
+            <%= live_patch(" send message",
+              to:
+                Routes.product_order_show_path(
+                  @socket,
+                  :new_message,
+                  @product_order.product_order_id
+                ),
+              class: "bg-black p-4 text-white poppins-bold"
+            ) %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 
-  <li>
-    <strong>Customer name:</strong>
-    <%= @product_order.customer_name %>
-  </li>
+    <div class="p-4 shadow-gray-200 rounded-lg bg-white ">
+      <p class="poppins-bold text-xl">
+        Track Your order
+      </p>
+      <p class="h-[2px] bg-gray-200 w-[100%]" />
+      <div class="flex gap-2 md:flex-row flex-col  items-start md:items-center">
+        <p class="poppins-bold text-xl">
+          Order No
+        </p>
+        <p class="poppins-bold text-xl">
+          <%= @product_order.product_order_id %>
+        </p>
+      </div>
 
-  <li>
-    <strong>Customer email:</strong>
-    <%= @product_order.customer_email %>
-  </li>
+      <div class="w-full mx-auto grid grid-cols-3 ">
+        <div class="flex items-center">
+          <div class="flex flex-col items-center gap-2 mx-auto">
+            <div class={
+              "#{if(@product_order.status == "pending" || @product_order.status == "packed" || @product_order.status == "shipped" || @product_order.status == "delivered") do
+                "h-[70px] w-[70px] md:h-[100px] md:w-[100px] flex flex-col justify-center items-center rounded-full bg-green-500"
+              else
+                "h-[70px] w-[70px] md:h-[100px] md:w-[100px]  flex flex-col justify-center items-center rounded-full bg-gray-200"
+              end}"
+            }>
+              <%= if (@product_order.status == "pending" || @product_order.status == "packed" || @product_order.status == "shipped" || @product_order.status == "delivered") do %>
+                <div class="flex flex-col gap-1 md:gap-2 items-center text-white">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <p class="poppins-bold text-xs">Pending</p>
+                </div>
+              <% else %>
+                <div class="flex flex-col gap-2 items-center text-gray-600">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                  <p class="poppins-bold text-xs">Pending</p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class={
+            "#{if(@product_order.status == "pending" || @product_order.status == "packed" || @product_order.status == "shipped" || @product_order.status == "delivered") do
+              "w-[70%] md:w-[70%] h-[5px] bg-green-500"
+            else
+              "w-[70%] md:w-[70%] h-[5px] bg-gray-200"
+            end}"
+          }>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class={
+            "#{if(@product_order.status == "packed" || @product_order.status == "shipped" || @product_order.status == "delivered") do
+              "h-[70px] w-[110px] md:h-[100px] md:w-[130px] flex flex-col justify-center items-center rounded-full bg-green-500"
+            else
+              "h-[70px] w-[110px] md:h-[100px] md:w-[130px]  flex flex-col justify-center items-center rounded-full bg-gray-200"
+            end}"
+          }>
+            <%= if (@product_order.status == "packed" || @product_order.status == "shipped" || @product_order.status == "delivered") do %>
+              <div class="flex flex-col gap-2 items-center text-white">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <p class="poppins-bold text-xs">Packed</p>
+              </div>
+            <% else %>
+              <div class="flex flex-col gap-2 items-center text-gray-600">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <p class="poppins-bold text-xs">Packed</p>
+              </div>
+            <% end %>
+          </div>
 
-  <li>
-    <strong>Customer phone number:</strong>
-    <%= @product_order.customer_phone_number %>
-  </li>
+          <div class={
+            "#{if(@product_order.status == "packed" || @product_order.status == "shipped" || @product_order.status == "delivered") do
+              "w-[70%] md:w-[100%] h-[5px] bg-green-500"
+            else
+              "w-[70%] md:w-[100%] h-[5px] bg-gray-200"
+            end}"
+          }>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class={
+            "#{if(@product_order.status == "shipped" || @product_order.status == "delivered") do
+              "h-[70px] w-[150px] md:h-[100px] md:w-[170px] flex flex-col justify-center items-center rounded-full bg-green-500"
+            else
+              "h-[80px] w-[150px] md:h-[100px] md:w-[170px]  flex flex-col justify-center items-center rounded-full bg-gray-200"
+            end}"
+          }>
+            <%= if (@product_order.status == "shipped" || @product_order.status == "delivered") do %>
+              <div class="flex flex-col gap-2 items-center text-white">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <p class="poppins-bold text-xs">Shipped</p>
+              </div>
+            <% else %>
+              <div class="flex flex-col gap-2 items-center text-gray-600">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <p class="poppins-bold text-xs">Shipped</p>
+              </div>
+            <% end %>
+          </div>
 
-  <li>
-    <strong>Location:</strong>
-    <%= @product_order.location %>
-  </li>
+          <div class={
+            "#{if(@product_order.status == "delivered") do
+              "w-[70%] md:w-[100%] h-[5px] bg-green-500"
+            else
+              "w-[70%] md:w-[100%] h-[5px] bg-gray-200"
+            end}"
+          }>
+          </div>
+          <div class={
+            "#{if(@product_order.status == "delivered") do
+              "h-[80px] w-[80px] md:h-[100px] md:w-[170px] flex flex-col justify-center items-center rounded-full bg-green-500"
+            else
+              "h-[80px] w-[80px] md:h-[100px] md:w-[170px]  flex flex-col justify-center items-center rounded-full bg-gray-200"
+            end}"
+          }>
+            <%= if (@product_order.status == "delivered") do %>
+              <div class="flex flex-col gap-2 items-center text-white">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                <p class="poppins-bold text-xs">Delivered</p>
+              </div>
+            <% else %>
+              <div class="flex flex-col gap-2 items-center text-gray-600">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <p class="poppins-bold text-xs">Delivered</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="flex my-4 md:flex-row flex-col justify-between">
+        <div class="flex flex-col gap-2">
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Name :
+            </p>
+            <p class="poppins-regular  md:text-xl">
+              <%= @product_order.customer_name %>
+            </p>
+          </div>
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Phone Number:
+            </p>
+            <p class="poppins-regular md:text-xl">
+              <%= @product_order.customer_phone_number %>
+            </p>
+          </div>
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Email:
+            </p>
+            <p class="poppins-regular  md:text-xl">
+              <%= @product_order.customer_email %>
+            </p>
+          </div>
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Location:
+            </p>
+            <p class="poppins-regular  md:text-xl">
+              <%= @product_order.location %>
+            </p>
+          </div>
+        </div>
 
-  <li>
-    <strong>More location details:</strong>
-    <%= @product_order.more_location_details %>
-  </li>
+        <div class="flex flex-col gap-2">
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Product :
+            </p>
+            <p class="poppins-regular  md:text-xl">
+              <%= @product_order.product.name %>
+            </p>
+          </div>
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Quantity:
+            </p>
+            <p class="poppins-regular md:text-xl">
+              <%= @product_order.quantity %>
+            </p>
+          </div>
 
-  <li>
-    <strong>Status:</strong>
-    <%= @product_order.status %>
-  </li>
+          <div class="flex gap-2 ">
+            <p class="poppins-bold md:text-xl">
+              Color:
+            </p>
+            <p class="poppins-regular md:text-xl">
+              <%= @product_order.color %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <li>
-    <strong>Latitude:</strong>
-    <%= @product_order.latitude %>
-  </li>
+    <p class="hidden" value={@product_order.latitude} id="product-order-latitude">
+      <%= @product_order.latitude %>
+    </p>
+    <p class="hidden" value={@product_order.longitude} id="product-order-longitude">
+      <%= @product_order.longitude %>
+    </p>
+    <div
+      phx-hook="LocationMap"
+      id="product-order-map"
+      class="p-4 shadow-gray-200 rounded-lg h-[300px] bg-white "
+    >
+    </div>
+    <%= if @user_signed_in == true do %>
+      <%= if @current_user.role == "admin" do %>
+        <p class="poppins-bold text-xl">
+          Messages to customer
+        </p>
 
-  <li>
-    <strong>Longitude:</strong>
-    <%= @product_order.longitude %>
-  </li>
+        <table class="w-[100%] shadow-white shadow-sm">
+          <thead class="w-[100%]  text-white bg-black">
+            <tr>
+              <th>Message</th>
+              <th>Sms status</th>
+              <th>Sms actions</th>
+              <th>Email actions</th>
+              <th>Email status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="t text-center" id="product_order_messages">
+            <%= for product_order_message <- @product_order_messages do %>
+              <tr id={"product_order_message-#{product_order_message.id}"}>
+                <td class="py-2"><%= product_order_message.message %></td>
+                <td>
+                  <%= if  product_order_message.sms_status == false do %>
+                    <p class="text-red-500">
+                      Not Sent
+                    </p>
+                  <% else %>
+                    <p class="text-green-500">
+                      Sent
+                    </p>
+                  <% end %>
+                </td>
 
-  <li>
-    <strong>Total price:</strong>
-    <%= @product_order.total_price %>
-  </li>
+                <td class="py-2">
+                  <div class="flex justify-center items-center">
+                    <%= if  product_order_message.sms_status == false do %>
+                      <button
+                        phx-click="send_sms"
+                        phx-value-id={product_order_message.id}
+                        class=" bg-black flex gap-2 w-[200px] justify-center items-center text-white  rounded-md p-2 "
+                      >
+                        Send SMS
+                      </button>
+                    <% end %>
+                  </div>
+                </td>
 
-  <li>
-    <strong>Color:</strong>
-    <%= @product_order.color %>
-  </li>
+                <td>
+                  <%= if  product_order_message.email_status == false do %>
+                    <p class="text-red-500">
+                      Not Sent
+                    </p>
+                  <% else %>
+                    <p class="text-green-500">
+                      Sent
+                    </p>
+                  <% end %>
+                </td>
 
-  <li>
-    <strong>Product order:</strong>
-    <%= @product_order.product_order_id %>
-  </li>
-</ul>
+                <td class="p-1">
+                  <div class="flex justify-center items-center">
+                    <%= if product_order_message.email_status == false do %>
+                      <button
+                        phx-click="send_email"
+                        phx-value-id={product_order_message.id}
+                        class="bg-black flex gap-2 w-[200px] justify-center items-center text-white  rounded-md p-2 "
+                      >
+                        Send Email
+                      </button>
+                    <% end %>
+                  </div>
+                </td>
 
-<span>
-  <%= live_patch("Edit",
-    to: Routes.product_order_show_path(@socket, :edit, @product_order),
-    class: "button"
-  ) %>
-</span>
-|
-<span><%= live_redirect("Back", to: Routes.product_order_index_path(@socket, :index)) %></span>
+                <td>
+                  <div class="flex flex-row gap-2 justify-center items-center">
+                    <%= link(
+                  to: "#",
+                  phx_click: "delete_product_order_message",
+                  phx_value_id: product_order_message.id,
+                  data: [confirm: "Are you sure?"]
+                ) do %>
+                      <%= Heroicons.icon("trash",
+                        type: "solid",
+                        class: "h-6  group-hover:text-red-600 text-red-400 w-6"
+                      ) %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    <% end %>
+  </div>
+</div>

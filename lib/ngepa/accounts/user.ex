@@ -4,6 +4,7 @@ defmodule Ngepa.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :role, :string, default: "user"
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
@@ -31,7 +32,7 @@ defmodule Ngepa.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :role])
     |> validate_email()
     |> validate_password(opts)
   end
