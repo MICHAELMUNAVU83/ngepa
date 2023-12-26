@@ -2,6 +2,8 @@ defmodule NgepaWeb.ProductOrderLive.FormComponent do
   use NgepaWeb, :live_component
 
   alias Ngepa.ProductOrders
+  alias Ngepa.Products
+  alias Ngepa.TransactionAlgorithim
 
   @impl true
   def update(%{product_order: product_order} = assigns, socket) do
@@ -10,6 +12,7 @@ defmodule NgepaWeb.ProductOrderLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:colors, [])
      |> assign(:changeset, changeset)}
   end
 
@@ -20,7 +23,20 @@ defmodule NgepaWeb.ProductOrderLive.FormComponent do
       |> ProductOrders.change_product_order(product_order_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    colors =
+      if product_order_params["product_id"] != "" do
+        product = Products.get_product!(product_order_params["product_id"])
+
+        product.colors
+        |> Enum.map(fn color -> {color.name, color.id} end)
+      else
+        []
+      end
+
+    {:noreply,
+     socket
+     |> assign(:colors, colors)
+     |> assign(:changeset, changeset)}
   end
 
   def handle_event("save", %{"product_order" => product_order_params}, socket) do
@@ -41,7 +57,23 @@ defmodule NgepaWeb.ProductOrderLive.FormComponent do
   end
 
   defp save_product_order(socket, :new, product_order_params) do
-    case ProductOrders.create_product_order(product_order_params) do
+    transaction_reference =
+      TransactionAlgorithim.code_reference_for_product_order(
+        product_order_params["product_id"],
+        product_order_params["customer_phone_number"]
+      )
+
+    product = Products.get_product!(product_order_params["product_id"])
+
+    total_price = product.price * String.to_integer(product_order_params["quantity"])
+
+    new_product_order_params =
+      product_order_params
+      |> Map.put("product_order_id", transaction_reference)
+      |> Map.put("status", "pending")
+      |> Map.put("total_price", total_price)
+
+    case ProductOrders.create_product_order(new_product_order_params) do
       {:ok, _product_order} ->
         {:noreply,
          socket

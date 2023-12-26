@@ -52,7 +52,7 @@ defmodule Ngepa.ProductOrders do
       ** (Ecto.NoResultsError)
 
   """
-  def get_product_order!(id), do: Repo.get!(ProductOrder, id)
+  def get_product_order!(id), do: Repo.get!(ProductOrder, id) |> Repo.preload(:product)
 
   def get_product_order_by_product_id!(product_order_id),
     do: Repo.get_by!(ProductOrder, product_order_id: product_order_id) |> Repo.preload(:product)

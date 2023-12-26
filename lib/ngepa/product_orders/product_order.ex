@@ -44,7 +44,6 @@ defmodule Ngepa.ProductOrders.ProductOrder do
       :customer_email,
       :customer_phone_number,
       :location,
-      :more_location_details,
       :status,
       :latitude,
       :longitude,

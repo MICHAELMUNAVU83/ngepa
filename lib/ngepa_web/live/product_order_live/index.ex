@@ -3,6 +3,8 @@ defmodule NgepaWeb.ProductOrderLive.Index do
 
   alias Ngepa.ProductOrders
   alias Ngepa.ProductOrders.ProductOrder
+  alias Ngepa.Products
+  alias Ngepa.Notify
 
   @impl true
   def mount(_params, _session, socket) do
@@ -18,13 +20,25 @@ defmodule NgepaWeb.ProductOrderLive.Index do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
+    products =
+      Products.list_products()
+      |> Enum.filter(fn product -> product.in_stock == true end)
+      |> Enum.map(fn product -> {product.name, product.id} end)
+
     socket
     |> assign(:page_title, "Edit Product order")
+    |> assign(:products, products)
     |> assign(:product_order, ProductOrders.get_product_order!(id))
   end
 
   defp apply_action(socket, :new, _params) do
+    products =
+      Products.list_products()
+      |> Enum.filter(fn product -> product.in_stock == true end)
+      |> Enum.map(fn product -> {product.name, product.id} end)
+
     socket
+    |> assign(:products, products)
     |> assign(:page_title, "New Product order")
     |> assign(:product_order, %ProductOrder{})
   end
@@ -50,6 +64,42 @@ defmodule NgepaWeb.ProductOrderLive.Index do
        :product_orders,
        ProductOrders.list_product_orders_by_search(params["product_order"]["search"])
      )}
+  end
+
+  def handle_event("send_sms", params, socket) do
+    product_order = ProductOrders.get_product_order!(params["id"])
+
+    Notify.send_product_order_as_sms(
+      product_order.customer_phone_number,
+      product_order.customer_name,
+      product_order.product.name,
+      product_order.color,
+      product_order.quantity,
+      product_order.location,
+      "https://mwambarugby.com/tickets/#{product_order.product_order_id}"
+    )
+
+    {:noreply,
+     socket
+     |> put_flash(:info, "SMS sent successfully")}
+  end
+
+  def handle_event("send_email", params, socket) do
+    product_order = ProductOrders.get_product_order!(params["id"])
+
+    Notify.send_product_order_as_email(
+      product_order.customer_email,
+      product_order.customer_name,
+      product_order.product.name,
+      product_order.color,
+      product_order.quantity,
+      product_order.location,
+      "https://mwambarugby.com/tickets/#{product_order.product_order_id}"
+    )
+
+    {:noreply,
+     socket
+     |> put_flash(:info, "Email sent successfully")}
   end
 
   defp list_product_orders do

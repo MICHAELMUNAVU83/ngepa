@@ -7,6 +7,7 @@
       id={@product_order.id || :new}
       title={@page_title}
       action={@live_action}
+      products={@products}
       product_order={@product_order}
       return_to={Routes.product_order_index_path(@socket, :index)}
     />
@@ -35,13 +36,13 @@
       <th>Location</th>
       <th>More location details</th>
       <th>Status</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
+
       <th>Total price</th>
       <th>Color</th>
-      <th>Product order</th>
+      <th class="font-normal">Send SMS</th>
+      <th class="font-normal">Send Email</th>
 
-      <th></th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody id="product_orders">
@@ -54,11 +55,28 @@
         <td><%= product_order.location %></td>
         <td><%= product_order.more_location_details %></td>
         <td><%= product_order.status %></td>
-        <td><%= product_order.latitude %></td>
-        <td><%= product_order.longitude %></td>
+
         <td><%= product_order.total_price %></td>
         <td><%= product_order.color %></td>
-        <td><%= product_order.product_order_id %></td>
+
+        <td class="p-1">
+          <button
+            phx-click="send_sms"
+            phx-value-id={product_order.id}
+            class=" bg-black flex gap-2 w-[200px] justify-center items-center text-white  rounded-md p-2 "
+          >
+            Send SMS
+          </button>
+        </td>
+        <td class="p-1">
+          <button
+            phx-click="send_email"
+            phx-value-id={product_order.id}
+            class="bg-black flex gap-2 w-[200px] justify-center items-center text-white  rounded-md p-2 "
+          >
+            Send Email
+          </button>
+        </td>
 
         <td>
           <span>
