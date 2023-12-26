@@ -38,12 +38,16 @@
   </.modal>
 <% end %>
 
-
 <div>
   <div
     class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
     style="background-image: url('/images/cap.jpg'); background-size: cover; background-position: center;"
   >
+    <div class="w-[100%] h-[100%] bg-black/50 flex justify-center items-center  text-white">
+      <p class="text-5xl uppercase">
+        <%= @product.name %>
+      </p>
+    </div>
   </div>
 
   <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 h-[100vh]">

@@ -27,48 +27,54 @@
 
   <div class="w-[100%] flex justify-between h-[80vh]">
     <div class="w-[60%] relative h-[100%] ">
-      <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
-      <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
-        <div class="flex flex-col  justify-center items-center gap-2 text-white text-3xl">
-          <p>Denim Jacket</p>
-          <p>Denim Jacket</p>
+      <%= live_redirect to: Routes.collection_index_path(@socket , :index, "men") do %>
+        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+        <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
+          <div class="flex flex-col  justify-center items-center gap-2 text-white text-3xl">
+            <p>Denim Jacket</p>
+            <p>Denim Jacket</p>
 
-          <div class="w-[100%] flex flex-col gap-1">
-            <p>Shop The Collection</p>
-            <p class="h-[2px] w-[100%] bg-white"></p>
+            <div class="w-[100%] flex flex-col gap-1">
+              <p>Shop The Collection</p>
+              <p class="h-[2px] w-[100%] bg-white"></p>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="w-[35%] h-[100%] flex flex-col justify-between ">
       <div class="w-[100%] relative h-[45%] ">
-        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
-        <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
-          <div class="flex flex-col  justify-center items-center gap-2 text-white text-xl">
-            <p>Denim Jacket</p>
-            <p>Denim Jacket</p>
+        <%= live_redirect to: Routes.collection_index_path(@socket , :index, "men") do %>
+          <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+          <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
+            <div class="flex flex-col  justify-center items-center gap-2 text-white text-xl">
+              <p>Denim Jacket</p>
+              <p>Denim Jacket</p>
 
-            <div class="w-[100%] flex flex-col gap-1">
-              <p>Shop The Collection</p>
-              <p class="h-[2px] w-[100%] bg-white"></p>
+              <div class="w-[100%] flex flex-col gap-1">
+                <p>Shop The Collection</p>
+                <p class="h-[2px] w-[100%] bg-white"></p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="w-[100%] relative h-[45%] ">
-        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
-        <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
-          <div class="flex flex-col  justify-center items-center gap-2 text-white text-xl">
-            <p>Denim Jacket</p>
-            <p>Denim Jacket</p>
+        <%= live_redirect to: Routes.collection_index_path(@socket , :index, "men") do %>
+          <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+          <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
+            <div class="flex flex-col  justify-center items-center gap-2 text-white text-xl">
+              <p>Denim Jacket</p>
+              <p>Denim Jacket</p>
 
-            <div class="w-[100%] flex flex-col gap-1">
-              <p>Shop The Collection</p>
-              <p class="h-[2px] w-[100%] bg-white"></p>
+              <div class="w-[100%] flex flex-col gap-1">
+                <p>Shop The Collection</p>
+                <p class="h-[2px] w-[100%] bg-white"></p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -104,8 +110,14 @@
   <div class="w-[100%] h-[60vh] bg-gray-200">
     <div class="p-12 flex flex-col gap-4 justify-center items-center">
       <p>Top Trending</p>
-      <div class="w-[70%] bg-gray-400 p-4 mx-auto">
-        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+      <div id="trending" phx-hook="Trending" class="w-[70%] bg-gray-400 p-4 mx-auto">
+        <div class="swiper h-[300px]  mySwiper">
+          <div class="swiper-wrapper h-[100%]">
+            <div class="swiper-slide  bg-red-500">Slide 1</div>
+            <div class="swiper-slide  bg-red-500">Slide 1</div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
       </div>
     </div>
   </div>

@@ -11,6 +11,9 @@
   </div>
 
   <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 min-h-[100vh]">
+    <p class="text-xl">
+      View  our <%= @collection_name %> collection
+    </p>
     <div class="w-[100%] grid grid-cols-3">
       <%= for product <- @products do %>
         <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name)  do %>
@@ -18,7 +21,7 @@
             <img
               src="/images/cap.jpg"
               alt=""
-              class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
+              class="h-[40vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
             />
             <div class="p-4 flex flex-col gap-2">
               <p>Title</p>
