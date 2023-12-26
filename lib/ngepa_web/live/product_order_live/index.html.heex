@@ -51,7 +51,7 @@
         <td>
           <span>
             <%= live_redirect("Show",
-              to: Routes.product_order_show_path(@socket, :show, product_order)
+              to: Routes.product_order_show_path(@socket, :show, product_order.product_order_id)
             ) %>
           </span>
           <span>

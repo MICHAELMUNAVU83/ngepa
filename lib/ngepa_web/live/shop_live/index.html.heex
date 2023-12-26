@@ -17,6 +17,7 @@
   <.modal return_to={Routes.shop_index_path(@socket, :index, @product.name)}>
     <.live_component
       module={NgepaWeb.ShopLive.Success}
+      product_order_id={@product_order_id}
       id={:success}
       title={@page_title}
       action={@live_action}

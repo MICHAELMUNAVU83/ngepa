@@ -17,65 +17,6 @@ defmodule NgepaWeb.ShopLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  def handle_event("hey", _, socket) do
-    transaction_reference =
-      TransactionAlgorithim.code_reference_for_product_order(
-        "1",
-        "254740769596"
-      )
-
-    # case Chpter.initiate_payment(
-    #        "pk_0b51e48bc6ac135ce3f65b1355248cae71ef085c0223bc0273535a4e174dce07",
-    #        "254740769596",
-    #        "John Doe",
-    #        "test@gmail.com",
-    #        1,
-    #        "juja",
-    #        "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions",
-    #        transaction_reference
-    #      ) do
-    #   {:ok, %HTTPoison.Response{status_code: 200, body: _body}} ->
-    #     customer_record =
-    #       Chpter.check_for_payment(
-    #         transaction_reference,
-    #         "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
-    #       )
-
-    #     IO.inspect(customer_record)
-    # end
-
-    # customer_record =
-    #   Chpter.check_for_payment(
-    #     "120237695961225084340254740",
-    #     "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
-    #   )
-
-    IO.inspect(
-      Chpter.initiate_payment(
-        "pk_0b51e48bc6ac135ce3f65b1355248cae71ef085c0223bc0273535a4e174dce07",
-        "254740769596",
-        "John Doe",
-        "test@gmail.com",
-        1,
-        "juja",
-        "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions",
-        transaction_reference
-      )
-    )
-
-    customer_record =
-      Chpter.check_for_payment(
-        transaction_reference,
-        "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
-      )
-
-    IO.inspect(customer_record)
-
-    {:noreply,
-     socket
-     |> put_flash(:info, "Hey there")}
-  end
-
   defp apply_action(socket, :index, %{"product_name" => product_name}) do
     product = Products.get_product_by_name!(product_name)
 
@@ -112,6 +53,7 @@ defmodule NgepaWeb.ShopLive.Index do
 
     socket
     |> assign(:product, product)
+    |> assign(:product_order_id, product_order_id)
     |> assign(:page_title, "Success")
   end
 
@@ -159,7 +101,7 @@ defmodule NgepaWeb.ShopLive.Index do
              product_order_params["customer_email"],
              1,
              product_order_params["location"],
-             "https://2438-105-160-50-193.ngrok-free.app/api/transactions",
+             "https://e610-196-109-226-202.ngrok-free.app/api/transactions",
              transaction_reference
            )
          ) do
@@ -167,7 +109,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://2438-105-160-50-193.ngrok-free.app/api/transactions/"
+            "https://e610-196-109-226-202.ngrok-free.app/api/transactions/"
           )
 
         if customer_record["success"] == true do
@@ -238,7 +180,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://2438-105-160-50-193.ngrok-free.app/api/transactions/api/transactions"
+            "https://e610-196-109-226-202.ngrok-free.app/api/transactions/api/transactions"
           )
 
         if customer_record["success"] == true do

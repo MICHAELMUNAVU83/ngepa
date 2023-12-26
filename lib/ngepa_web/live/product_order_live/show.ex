@@ -13,7 +13,7 @@ defmodule NgepaWeb.ProductOrderLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:product_order, ProductOrders.get_product_order!(id))}
+     |> assign(:product_order, ProductOrders.get_product_order_by_product_id!(id))}
   end
 
   defp page_title(:show), do: "Show Product order"
