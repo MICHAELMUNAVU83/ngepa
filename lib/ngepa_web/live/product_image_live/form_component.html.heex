@@ -11,8 +11,14 @@
   >
     <%= hidden_input(f, :product_id, value: @product.id) %>
 
+    <%= text_input(f, :testtyu) %>
+
     <%= label(f, :image) %>
     <%= live_file_input(@uploads.image) %>
+
+    <%= if @action == :edit_product_image do %>
+      <%= @product_image.image_url %>
+    <% end %>
 
     <%= for entry <- @uploads.image.entries do %>
       <%= live_img_preview(entry, style: "max-width: 200px; max-height: 200px;") %>

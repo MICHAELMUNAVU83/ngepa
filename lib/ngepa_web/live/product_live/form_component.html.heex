@@ -17,10 +17,19 @@
     <%= label(f, :description) %>
     <%= text_input(f, :description) %>
     <%= error_tag(f, :description) %>
+    <%= label(f, :image) %>
+    <%= live_file_input(@uploads.image) %>
 
-    <%= label(f, :primary_image) %>
-    <%= text_input(f, :primary_image) %>
-    <%= error_tag(f, :primary_image) %>
+    <%= if @action == :edit do %>
+      <%= @product.primary_image %>
+    <% end %>
+
+    <%= for entry <- @uploads.image.entries do %>
+      <%= live_img_preview(entry, style: "max-width: 200px; max-height: 200px;") %>
+      <button phx-click="cancel-upload" phx-value-ref={entry.ref}>
+        Cancel
+      </button>
+    <% end %>
 
     <%= label(f, :in_stock) %>
     <%= checkbox(f, :in_stock) %>

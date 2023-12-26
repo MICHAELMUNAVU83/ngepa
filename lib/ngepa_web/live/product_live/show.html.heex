@@ -114,7 +114,13 @@
           <tbody id="products">
             <%= for product_image <- @product_images do %>
               <tr>
-                <td><%= product_image.image_url %></td>
+                <td>
+                  <img
+                    src={product_image.image_url}
+                    alt=""
+                    class="h-[100px] w-[100px] object-cover"
+                  />
+                </td>
                 <td>
                   <span>
                     <%= live_patch("Edit",
@@ -122,8 +128,8 @@
                         Routes.product_show_path(
                           @socket,
                           :edit_product_image,
-                          product_image.id,
-                          @product.id
+                          @product.id,
+                          product_image.id
                         )
                     ) %>
                   </span>
