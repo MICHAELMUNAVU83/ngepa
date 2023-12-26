@@ -1,0 +1,46 @@
+<div class="flex flex-col gap-2">
+  <div class="flex w-[100%] justify-between items-center">
+    <h1 class="text-white font-3xl font-semibold">Listing Product Transacations</h1>
+  </div>
+
+  <div class="w-[100%] flex flex-col gap-1">
+    <p class="text-gray-200">
+      Search by any
+    </p>
+    <.form let={f} for={@changeset} class="w-[100%]" phx_change="search">
+      <%= text_input(f, :search,
+        placeholder: "search for  transaction",
+        class:
+          "w-[100%] rounded-md border-transparent focus:border-transparent focus:ring-0  border-gray-300 border-2 p-2"
+      ) %>
+    </.form>
+  </div>
+
+  <table class="w-[100%] shadow-white shadow-sm">
+    <thead class="w-[100%]   bg-black">
+      <tr>
+        <th class="font-normal">Message</th>
+        <th class="font-normal">Status</th>
+        <th class="font-normal">success</th>
+        <th class="font-normal">Amount</th>
+        <th class="font-normal">Transaction_code</th>
+        <th class="font-normal">Product</th>
+        <th class="font-normal">Phone number</th>
+      </tr>
+    </thead>
+    <tbody class=" text-center" id="fixtures">
+      <%= for transaction <- @transactions do %>
+        <tr id={"transaction-#{transaction.id}"}>
+          <td class="py-2"><%= transaction.message %></td>
+          <td><%= transaction.status %></td>
+          <td><%= transaction.success %></td>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.transaction_code %></td>
+
+          <td><%= transaction.product.name %></td>
+          <td><%= transaction.phone_number %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

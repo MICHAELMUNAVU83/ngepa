@@ -9,6 +9,7 @@ defmodule Ngepa.Repo.Migrations.CreateTransactions do
       add :success, :boolean, default: false, null: false
       add :transaction_code, :string
       add :transaction_reference, :string
+      add :phone_number, :string
       add :product_id, references(:products, on_delete: :nothing)
 
       timestamps()

@@ -13,6 +13,18 @@
   </.modal>
 <% end %>
 
+<div class="w-[100%] flex flex-col gap-1">
+  <p class="text-gray-200">
+    Search by any
+  </p>
+  <.form let={f} for={@changeset} class="w-[100%]" phx_change="search">
+    <%= text_input(f, :search,
+      placeholder: "Search for an order by any parameter",
+      class: "w-[100%] rounded-md   border-gray-300 border-2 p-2"
+    ) %>
+  </.form>
+</div>
+
 <table>
   <thead>
     <tr>

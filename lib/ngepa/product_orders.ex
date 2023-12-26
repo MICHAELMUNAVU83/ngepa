@@ -21,6 +21,23 @@ defmodule Ngepa.ProductOrders do
     Repo.all(ProductOrder)
   end
 
+  def list_product_orders_by_search(search) do
+    if search == "" do
+      Repo.all(ProductOrder)
+    else
+      Repo.all(ProductOrder)
+      |> Enum.filter(fn order ->
+        String.contains?(String.downcase(order.product_order_id), String.downcase(search)) or
+          String.contains?(
+            String.downcase(order.customer_phone_number),
+            String.downcase(search)
+          ) or
+          String.contains?(String.downcase(order.customer_name), String.downcase(search)) or
+          String.contains?(String.downcase(order.customer_email), String.downcase(search))
+      end)
+    end
+  end
+
   @doc """
   Gets a single product_order.
 

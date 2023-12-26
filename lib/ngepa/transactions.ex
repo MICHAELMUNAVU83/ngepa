@@ -18,7 +18,40 @@ defmodule Ngepa.Transactions do
 
   """
   def list_transactions do
-    Repo.all(Transaction)
+    Repo.all(Transaction) |> Repo.preload(:product)
+  end
+
+  def list_transactions_by_search(search) do
+    if search == "" do
+      Repo.all(Transaction)
+      |> Repo.preload(:product)
+    else
+      Repo.all(Transaction)
+      |> Repo.preload(:product)
+      |> Enum.filter(fn transaction ->
+        String.contains?(
+          String.downcase(transaction.transaction_code),
+          String.downcase(search)
+        ) or
+          String.contains?(
+            String.downcase(transaction.transaction_reference),
+            String.downcase(search)
+          ) or
+          String.contains?(
+            String.downcase(transaction.amount),
+            String.downcase(search)
+          ) or
+          String.contains?(
+            String.downcase(transaction.product.name),
+            String.downcase(search)
+          ) or
+          String.contains?(
+            String.downcase(transaction.phone_number),
+            String.downcase(search)
+          ) or
+          String.contains?(String.downcase(transaction.phone_number), String.downcase(search))
+      end)
+    end
   end
 
   @doc """

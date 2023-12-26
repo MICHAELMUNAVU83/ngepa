@@ -19,7 +19,8 @@ defmodule NgepaWeb.TransactionView do
       success: transaction.success,
       transaction_code: transaction.transaction_code,
       transaction_reference: transaction.transaction_reference,
-      product_id: transaction.product_id
+      product_id: transaction.product_id,
+      phone_number: transaction.phone_number
     }
   end
 end

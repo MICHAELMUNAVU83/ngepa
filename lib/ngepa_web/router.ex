@@ -21,6 +21,7 @@ defmodule NgepaWeb.Router do
     pipe_through :browser
 
     live "/", PageLive.Index, :index
+    live "/transactions", TransactionLive.Index, :index
     live "/collection/:collection_name", CollectionLive.Index, :index
     live "/shop/:product_name", ShopLive.Index, :index
     live "/shop/:product_name/buy", ShopLive.Index, :buy

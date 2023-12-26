@@ -6,7 +6,10 @@ defmodule NgepaWeb.ProductOrderLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :product_orders, list_product_orders())}
+    {:ok,
+     socket
+     |> assign(:changeset, ProductOrders.change_product_order(%ProductOrder{}))
+     |> assign(:product_orders, list_product_orders())}
   end
 
   @impl true
@@ -38,6 +41,15 @@ defmodule NgepaWeb.ProductOrderLive.Index do
     {:ok, _} = ProductOrders.delete_product_order(product_order)
 
     {:noreply, assign(socket, :product_orders, list_product_orders())}
+  end
+
+  def handle_event("search", params, socket) do
+    {:noreply,
+     socket
+     |> assign(
+       :product_orders,
+       ProductOrders.list_product_orders_by_search(params["product_order"]["search"])
+     )}
   end
 
   defp list_product_orders do
