@@ -1,0 +1,72 @@
+<div class="flex flex-col gap-2">
+  <div class="flex w-[100%] justify-between items-center">
+    <h1 class=" text-3xl font-semibold">Listing Users</h1>
+  </div>
+
+  <table class="w-[100%] shadow-white shadow-sm">
+    <thead class="w-[100%]   bg-black">
+      <tr>
+        <th class="font-normal">Email</th>
+        <th class="font-normal">Image</th>
+        <th class="font-normal">Role</th>
+        <th class="font-normal">Admin action</th>
+        <th class="font-normal">User Action</th>
+        <th class="font-normal">Blogger action</th>
+        <th class="font-normal">Delete action</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <%= for user <- @users do %>
+        <tr class="border-b-white py-2 border-b-[1px]" id={"user-#{user.id}"}>
+          <td class="py-2"><%= user.email %></td>
+          <td class="py-2"><%= user.email %></td>
+          <td class="py-2"><%= user.role %></td>
+          <td class="py-2">
+            <%= if user.role != "admin" do %>
+              <button
+                phx-click="make_admin"
+                phx-value-id={user.id}
+                class="bg-white border rounded-lg p-2 text-black"
+              >
+                make Admin
+              </button>
+            <% end %>
+          </td>
+          <td class="py-2">
+            <%= if user.role != "user" do %>
+              <button
+                phx-click="make_user"
+                phx-value-id={user.id}
+                class="bg-white border rounded-lg p-2 text-black"
+              >
+                Make User
+              </button>
+            <% end %>
+          </td>
+          <td class="py-2">
+            <%= if user.role != "delivery_agent" do %>
+              <button
+                phx-click="make_delivery_agent"
+                phx-value-id={user.id}
+                class="bg-white border rounded-lg p-2 text-black"
+              >
+                Make Delivery Agent
+              </button>
+            <% end %>
+          </td>
+          <td>
+            <%= link(
+                  to: "#",
+                  phx_click: "delete_user",
+                  phx_value_id: user.id,
+                  class: "bg-white border p-2 rounded-lg text-black",
+                  data: [confirm: "Are you sure?"]
+                ) do %>
+              Delete User
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

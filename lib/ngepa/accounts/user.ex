@@ -37,6 +37,11 @@ defmodule Ngepa.Accounts.User do
     |> validate_password(opts)
   end
 
+  def changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:email, :password, :role])
+  end
+
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])

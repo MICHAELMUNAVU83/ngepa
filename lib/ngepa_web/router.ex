@@ -22,6 +22,7 @@ defmodule NgepaWeb.Router do
 
     live "/", PageLive.Index, :index
     live "/transactions", TransactionLive.Index, :index
+    live "/system_users", SystemUserLive.Index, :index
     live "/collection/:collection_name", CollectionLive.Index, :index
     live "/shop/:product_name", ShopLive.Index, :index
     live "/shop/:product_name/buy", ShopLive.Index, :buy

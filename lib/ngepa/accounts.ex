@@ -10,6 +10,10 @@ defmodule Ngepa.Accounts do
 
   ## Database getters
 
+  def list_users do
+    Repo.all(User)
+  end
+
   @doc """
   Gets a user by email.
 
@@ -24,6 +28,12 @@ defmodule Ngepa.Accounts do
   """
   def get_user_by_email(email) when is_binary(email) do
     Repo.get_by(User, email: email)
+  end
+
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """
