@@ -69,6 +69,42 @@ defmodule Ngepa.Chpter do
     HTTPoison.post(url, request_body, header)
   end
 
+  def upload_image do
+    url = "https://api.cloudinary.com/v1_1/dakiak4mc/image/upload"
+    upload_preset = "qrqru97j"
+
+    # Replace with the actual file path
+    file_path = "/Users/mac/Documents/projects/kibz/ngepa/priv/static/images/cap1.jpg"
+
+    file_data = File.read!(file_path)
+
+    upload_params =
+      %{
+        "file" => file_path,
+        "upload_preset" => upload_preset
+      }
+      |> URI.encode_query()
+
+    response =
+      IO.inspect(
+        HTTPoison.post!(
+          "https://api.cloudinary.com/v1_1/dakiak4mc/image/upload",
+          upload_params,
+          []
+        )
+      )
+
+    case response.code do
+      200 ->
+        IO.puts("Upload successful")
+        IO.inspect(response.body)
+
+      _ ->
+        IO.puts("Upload failed with code #{response.code}")
+        IO.inspect(response.body)
+    end
+  end
+
   @doc """
   This is the header for the Chpter API request
   This function takes an api_key as a parameter

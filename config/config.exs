@@ -28,6 +28,11 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
+config :cloudex,
+  api_key: "494752274128199",
+  secret: "_7kjy4EnYk7WYQn_vaY9iZqRCXA",
+  cloud_name: "dakiak4mc"
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
