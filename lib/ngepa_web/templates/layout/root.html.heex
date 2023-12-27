@@ -45,9 +45,9 @@
         <%= if @current_user do %>
           <%= if @current_user.role == "admin"  do %>
             <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
-              <%= live_redirect to: Routes.page_index_path(@conn, :index) do %>
+              <%= live_redirect to: Routes.product_index_path(@conn, :index) do %>
                 <p class="text-xl poppins-regular text-black">
-                  Headwear Solutions
+                  dashboard
                 </p>
               <% end %>
             </p>
@@ -124,7 +124,7 @@
         </div>
       </div>
     </nav>
-    <div class="pt-24">
+    <div class="md:pt-24">
       <%= @inner_content %>
     </div>
   </body>
