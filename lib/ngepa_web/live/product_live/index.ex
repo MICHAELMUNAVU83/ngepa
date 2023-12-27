@@ -1,5 +1,5 @@
 defmodule NgepaWeb.ProductLive.Index do
-  use NgepaWeb, :live_view
+  use NgepaWeb, :admin_live_view
 
   alias Ngepa.Products
   alias Ngepa.Products.Product

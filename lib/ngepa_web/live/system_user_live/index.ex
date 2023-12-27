@@ -1,5 +1,5 @@
 defmodule NgepaWeb.SystemUserLive.Index do
-  use NgepaWeb, :live_view
+  use NgepaWeb, :admin_live_view
 
   alias Ngepa.Transactions
   alias Ngepa.Transactions.Transaction
@@ -69,5 +69,19 @@ defmodule NgepaWeb.SystemUserLive.Index do
        |> Enum.filter(fn user -> user.id != socket.assigns.current_user.id end)
      )
      |> put_flash(:info, "User given delivery fulfilment rights")}
+  end
+
+  def handle_event("delete_user", %{"id" => id}, socket) do
+    user = Accounts.get_user!(id)
+    {:ok, _user} = Accounts.delete_user(user)
+
+    {:noreply,
+     socket
+     |> assign(
+       :users,
+       Accounts.list_users()
+       |> Enum.filter(fn user -> user.id != socket.assigns.current_user.id end)
+     )
+     |> put_flash(:info, "User deleted")}
   end
 end

@@ -1,0 +1,75 @@
+<main>
+  <%= if @flash["info"] do %>
+    <p
+      class="alert alert-info hideMsg"
+      role="alert"
+      phx-click="lv:clear-flash"
+      phx-value-key="info"
+    >
+      <%= live_flash(@flash, :info) %>
+    </p>
+  <% end %>
+
+  <%= if @flash["error"] do %>
+    <p
+      class="alert alert-danger hideMsg"
+      role="alert"
+      phx-click="lv:clear-flash"
+      phx-value-key="error"
+    >
+      <%= live_flash(@flash, :error) %>
+    </p>
+  <% end %>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCofEHIsoFbtmxqUvDMQgbHTRIfJ1yrARI&libraries=places&callback=initAutoComplete"
+    defer
+  />
+
+  <div class="flex justify-between w-[100%] ">
+    <div class="w-[20%] bg-black text-white poppins-regular text-xl h-[100vh] z-40 flex gap-4 flex-col items-start p-4 pt-6 fixed">
+      <div class="flex flex-col gap-4 w-[100%]">
+        <p>
+          Headwear Solutions
+        </p>
+        <p class="w-[80%] h-[2px] bg-white" />
+        <div class="flex flex-col gap-2">
+          <%= live_redirect to: Routes.product_index_path(@socket, :index) do %>
+            <p>
+              <i class="fa fa-graduation-cap" aria-hidden="true"></i> Products
+            </p>
+          <% end %>
+        </div>
+        <div class="flex flex-col gap-2">
+          <%= live_redirect to: Routes.product_order_index_path(@socket, :index) do %>
+            <p>
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i> Orders
+            </p>
+          <% end %>
+        </div>
+        <div class="flex flex-col gap-2">
+          <%= live_redirect to: Routes.transaction_index_path(@socket, :index) do %>
+            <p>
+              <i class="fa fa-money" aria-hidden="true"></i> Transactions
+            </p>
+          <% end %>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <%= live_redirect to: Routes.system_user_index_path(@socket, :index) do %>
+            <p>
+              <i class="fa fa-users" aria-hidden="true"></i> Users
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="w-[100%] ml-[20%] h-[100vh] p-4 overflow-scroll   bg--100">
+      <div class="w-[100%]">
+        <div>
+          <%= @inner_content %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

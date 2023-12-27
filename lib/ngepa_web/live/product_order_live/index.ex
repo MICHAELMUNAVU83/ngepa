@@ -1,15 +1,19 @@
 defmodule NgepaWeb.ProductOrderLive.Index do
-  use NgepaWeb, :live_view
+  use NgepaWeb, :admin_live_view
 
   alias Ngepa.ProductOrders
   alias Ngepa.ProductOrders.ProductOrder
   alias Ngepa.Products
   alias Ngepa.Notify
+  alias Ngepa.Accounts
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    current_user = Accounts.get_user_by_session_token(session["user_token"])
+
     {:ok,
      socket
+     |> assign(:current_user, current_user)
      |> assign(:changeset, ProductOrders.change_product_order(%ProductOrder{}))
      |> assign(:product_orders, list_product_orders())}
   end

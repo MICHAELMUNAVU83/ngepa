@@ -7,11 +7,10 @@
     <thead class="w-[100%]   bg-black">
       <tr>
         <th class="font-normal">Email</th>
-        <th class="font-normal">Image</th>
         <th class="font-normal">Role</th>
         <th class="font-normal">Admin action</th>
         <th class="font-normal">User Action</th>
-        <th class="font-normal">Blogger action</th>
+        <th class="font-normal">Delivery  Action</th>
         <th class="font-normal">Delete action</th>
       </tr>
     </thead>
@@ -19,14 +18,13 @@
       <%= for user <- @users do %>
         <tr class="border-b-white py-2 border-b-[1px]" id={"user-#{user.id}"}>
           <td class="py-2"><%= user.email %></td>
-          <td class="py-2"><%= user.email %></td>
           <td class="py-2"><%= user.role %></td>
           <td class="py-2">
             <%= if user.role != "admin" do %>
               <button
                 phx-click="make_admin"
                 phx-value-id={user.id}
-                class="bg-white border rounded-lg p-2 text-black"
+                class="bg-black text-white  border rounded-lg p-2 "
               >
                 make Admin
               </button>
@@ -37,7 +35,7 @@
               <button
                 phx-click="make_user"
                 phx-value-id={user.id}
-                class="bg-white border rounded-lg p-2 text-black"
+                class="bg-black text-white  border rounded-lg p-2 "
               >
                 Make User
               </button>
@@ -48,7 +46,7 @@
               <button
                 phx-click="make_delivery_agent"
                 phx-value-id={user.id}
-                class="bg-white border rounded-lg p-2 text-black"
+                class="bg-black text-white  border rounded-lg p-2 "
               >
                 Make Delivery Agent
               </button>
@@ -59,7 +57,7 @@
                   to: "#",
                   phx_click: "delete_user",
                   phx_value_id: user.id,
-                  class: "bg-white border p-2 rounded-lg text-black",
+                  class: "bg-black text-white  border p-2 rounded-lg ",
                   data: [confirm: "Are you sure?"]
                 ) do %>
               Delete User

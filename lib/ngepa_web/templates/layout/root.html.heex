@@ -24,7 +24,7 @@
     </script>
   </head>
   <body>
-    <div class="md:flex justify-between hidden   poppins-regular items-center  py-6 w-[100%] px-12">
+    <div class="md:flex justify-between hidden   fixed bg-white z-50 poppins-regular items-center  py-6 w-[100%] px-12">
       <div class="flex gap-4 text-base items-center">
         <a href="/" class="hover:underline scale-105 transition-all ease-in-out duration-500">
           Home
@@ -118,34 +118,8 @@
         </div>
       </div>
     </nav>
-    <%= @inner_content %>
-
-    <footer
-      id="contact"
-      class="w-[100%] p-8 flex justify-between bg-[#F5F3EE] md:items-center items-start gap-8 md:flex-row flex-col"
-    >
-      <div class="flex flex-col w-[100%] md:w-[30%] gap-4">
-        <p class="text-xl poppins-bold">Headwear Solutions</p>
-        <p class="text-base raleway-regular">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
-        </p>
-      </div>
-
-      <b class="w-[100%] md:w-[30%] text-xl poppins-bold">
-        Headwear Solutions
-      </b>
-      <div class="flex w-[100%] md:w-[30%] flex-col gap-2">
-        <p class="text-xl poppins-bold">Call Us : 0734562345</p>
-        <p class="text-base raleway-regular">
-          Email :headwearsolutions@gmail.com
-        </p>
-        <p class="text-base raleway-regular">
-          Email :headwearsolutions@gmail.com
-        </p>
-        <p class="text-base raleway-regular">
-          Email :headwearsolutions@gmail.com
-        </p>
-      </div>
-    </footer>
+    <div class="pt-24">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>

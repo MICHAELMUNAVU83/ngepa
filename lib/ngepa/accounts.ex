@@ -14,6 +14,11 @@ defmodule Ngepa.Accounts do
     Repo.all(User)
   end
 
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
+
+  @spec get_user_by_email(binary()) :: any()
   @doc """
   Gets a user by email.
 

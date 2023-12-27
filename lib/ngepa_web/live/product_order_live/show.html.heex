@@ -211,13 +211,18 @@
               <%= @product_order.customer_email %>
             </p>
           </div>
-          <div class="flex gap-2 ">
-            <p class="poppins-bold md:text-xl">
-              Location:
-            </p>
-            <p class="poppins-regular  md:text-xl">
-              <%= @product_order.location %>
-            </p>
+          <div class="flex flex-col">
+            <div class="flex gap-2 ">
+              <p class="poppins-bold md:text-xl">
+                Location:
+              </p>
+              <p class="poppins-regular  md:text-xl">
+                <%= @product_order.location %>
+              </p>
+            </div>
+            <div class="md:text-xl">
+              <%= @product_order.more_location_details %>
+            </div>
           </div>
         </div>
 
