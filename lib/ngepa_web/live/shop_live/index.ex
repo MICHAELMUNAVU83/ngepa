@@ -32,6 +32,8 @@ defmodule NgepaWeb.ShopLive.Index do
     socket
     |> assign(:product, product)
     |> assign(:slides, slides)
+    |> assign(:total_price, "")
+    |> assign(:quantity, "")
     |> assign(:colors, colors)
     |> assign(:page_title, "#{product.name}")
   end
@@ -50,6 +52,8 @@ defmodule NgepaWeb.ShopLive.Index do
 
     socket
     |> assign(:product, product)
+    |> assign(:total_price, "")
+    |> assign(:quantity, "")
     |> assign(:slides, slides)
     |> assign(:colors, colors)
     |> assign(:product_order, %ProductOrder{})
@@ -65,6 +69,8 @@ defmodule NgepaWeb.ShopLive.Index do
 
     socket
     |> assign(:product, product)
+    |> assign(:total_price, "")
+    |> assign(:quantity, "")
     |> assign(:product_order_id, product_order_id)
     |> assign(:page_title, "Success")
   end
@@ -82,6 +88,8 @@ defmodule NgepaWeb.ShopLive.Index do
     socket
     |> assign(:product, product)
     |> assign(:slides, slides)
+    |> assign(:total_price, "")
+    |> assign(:quantity, "")
     |> assign(:page_title, "Failed")
   end
 
@@ -91,7 +99,20 @@ defmodule NgepaWeb.ShopLive.Index do
       |> ProductOrders.change_product_order(product_order_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    total_price =
+      if product_order_params["quantity"] != "" do
+        product = Products.get_product!(product_order_params["product_id"])
+
+        product.price * String.to_integer(product_order_params["quantity"])
+      else
+        ""
+      end
+
+    {:noreply,
+     socket
+     |> assign(:quantity, product_order_params["quantity"])
+     |> assign(:total_price, total_price)
+     |> assign(:changeset, changeset)}
   end
 
   def handle_event("save", %{"product_order" => product_order_params}, socket) do

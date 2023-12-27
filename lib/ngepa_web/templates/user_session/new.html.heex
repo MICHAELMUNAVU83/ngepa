@@ -1,29 +1,61 @@
-<h1>Log in</h1>
-
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
-  <%= if @error_message do %>
-    <div class="alert alert-danger">
-      <p><%= @error_message %></p>
-    </div>
-  <% end %>
-
-  <%= label(f, :email) %>
-  <%= email_input(f, :email, required: true) %>
-
-  <%= label(f, :password) %>
-  <%= password_input(f, :password, required: true) %>
-
-  <%= label(f, :remember_me, "Keep me logged in for 60 days") %>
-  <%= checkbox(f, :remember_me) %>
-
-  <div>
-    <%= submit("Log in") %>
+<div
+  class="w-[100%]  bg-blue-400 z-0 h-[40vh]"
+  style="background-image: url('/images/unisex.jpg'); background-size: cover; background-position: center;"
+>
+  <div class="w-[100%] h-[100%] bg-black/60 flex justify-center flex-col items-center  text-white">
+    <p class="text-6xl   poppins-bold uppercase">
+      Login
+    </p>
+    <p class="raleway-regular">
+      Home / Login
+    </p>
   </div>
-</.form>
+</div>
+<div class="my-12 w-[100%]">
+  <.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+    <%= if @error_message do %>
+      <div class="alert alert-danger">
+        <p><%= @error_message %></p>
+      </div>
+    <% end %>
+    <div class="md:w-[70%] w-[85%] mx-auto flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
+        <b class="poppins-bold">
+          Login
+        </b>
+        <p class="w-[100%] h-[1px] bg-black" />
+      </div>
 
-<p>
-  <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %> | <%= link(
-    "Forgot your password?",
-    to: Routes.user_reset_password_path(@conn, :new)
-  ) %>
-</p>
+      <div class="flex flex-col raleway-regular w-[100%]">
+        <%= label(f, :email) %>
+        <%= email_input(f, :email,
+          required: true,
+          class:
+            "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+        ) %>
+      </div>
+
+      <div class="flex flex-col raleway-regular w-[100%]">
+        <%= label(f, :password) %>
+        <%= password_input(f, :password,
+          required: true,
+          class:
+            "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+        ) %>
+      </div>
+
+      <div>
+        <%= submit("Log in",
+          class:
+            "bg-black p-2 text-white rounded-md hover:scale-105 transition-all ease-in-out duration-500 cursor-pointer"
+        ) %>
+      </div>
+      <p>
+        <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %> | <%= link(
+          "Forgot your password?",
+          to: Routes.user_reset_password_path(@conn, :new)
+        ) %>
+      </p>
+    </div>
+  </.form>
+</div>

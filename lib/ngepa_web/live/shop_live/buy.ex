@@ -5,9 +5,12 @@ defmodule NgepaWeb.ShopLive.Buy do
     ~H"""
     <div>
       <div id="myModal" class="modal">
-        <div class="modal-content pt-12 ">
+        <div class="modal-content ralewa-regular pt-12 ">
           <div>
-            <h2 class="text-3xl font-bold my-4"><%= @title %></h2>
+            <h2 class="text-3xl font-bold my-4"><%= @title %> ~ <%= @product.price %> KES /=</h2>
+            <p class="poppins-regular">
+              Fill in the form to pay with Mpesa
+            </p>
 
             <.form
               let={f}
@@ -107,6 +110,10 @@ defmodule NgepaWeb.ShopLive.Buy do
                       "w-[100%] rounded-md  h-[80px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
                   ) %>
                 </div>
+
+                <%= if @total_price != "" do %>
+                  The total price for <%= @quantity %> products would be <%= @total_price %> KES /=
+                <% end %>
 
                 <div class="flex justify-center items-center">
                   <%= submit("Buy Product",

@@ -11,6 +11,6 @@ defmodule NgepaWeb.PageLive.Index do
     {:ok,
      socket
      |> assign(:products, products)
-     |> assign(:page_title, "Listing Products")}
+     |> assign(:page_title, "Headwear Solutions")}
   end
 end

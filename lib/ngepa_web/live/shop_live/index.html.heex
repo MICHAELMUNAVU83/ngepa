@@ -5,6 +5,8 @@
       id={:new}
       title={@page_title}
       action={@live_action}
+      total_price={@total_price}
+      quantity={@quantity}
       product={@product}
       colors={@colors}
       changeset={@changeset}
@@ -52,15 +54,15 @@
     </div>
   </div>
 
-  <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 h-[100vh]">
-    <div class="w-[100%] flex justify-between md:flex-row flex-col items-start">
+  <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 min-h-[100vh]">
+    <div class="w-[100%] flex justify-between md:flex-row flex-col gap-8 md:items-start">
       <div class="md:w-[48%] w-[100%] md:h-[90vh] h-[40vh] ">
-        <div class="swiper z-0 w-[100%]  " phx-hook="ProductSwiper" id="swiper">
-          <div class="swiper-wrapper z-0 w-[100%]">
+        <div class="swiper z-0 w-[100%] md:h-[90vh] h-[40vh]" phx-hook="ProductSwiper" id="swiper">
+          <div class="swiper-wrapper z-0 h-[100%] w-[100%]">
             <%= for slide <- @slides do %>
               <img
                 alt="product image"
-                class=" w-full object-cover z-0 swiper-slide object-center md:h-[350px] h-[300px] rounded border border-gray-200"
+                class=" w-full object-cover z-0 swiper-slide object-center h-[100%] rounded border border-gray-200"
                 src={slide}
               />
             <% end %>
