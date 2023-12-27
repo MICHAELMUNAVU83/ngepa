@@ -67,8 +67,19 @@ defmodule NgepaWeb.ShopLive.Index do
        }) do
     product = Products.get_product_by_name!(product_name)
 
+    colors =
+      product.colors
+      |> Enum.map(fn color -> color.name end)
+
+    slides = [
+      product.primary_image
+      | product.product_images |> Enum.map(fn product_image -> product_image.image_url end)
+    ]
+
     socket
     |> assign(:product, product)
+    |> assign(:colors, colors)
+    |> assign(:slides, slides)
     |> assign(:total_price, "")
     |> assign(:quantity, "")
     |> assign(:product_order_id, product_order_id)
@@ -85,9 +96,14 @@ defmodule NgepaWeb.ShopLive.Index do
       | product.product_images |> Enum.map(fn product_image -> product_image.image_url end)
     ]
 
+    colors =
+      product.colors
+      |> Enum.map(fn color -> color.name end)
+
     socket
     |> assign(:product, product)
     |> assign(:slides, slides)
+    |> assign(:colors, colors)
     |> assign(:total_price, "")
     |> assign(:quantity, "")
     |> assign(:page_title, "Failed")
@@ -140,7 +156,7 @@ defmodule NgepaWeb.ShopLive.Index do
              product_order_params["customer_email"],
              1,
              product_order_params["location"],
-             "https://8904-105-61-44-84.ngrok-free.app/api/transactions",
+             "https://7df4-102-135-174-116.ngrok-free.app/api/transactions",
              transaction_reference
            )
          ) do
@@ -148,7 +164,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://8904-105-61-44-84.ngrok-free.app/api/transactions"
+            "https://7df4-102-135-174-116.ngrok-free.app/api/transactions"
           )
 
         if customer_record["success"] == true do
@@ -221,7 +237,7 @@ defmodule NgepaWeb.ShopLive.Index do
         customer_record =
           Chpter.check_for_payment(
             transaction_reference,
-            "https://8904-105-61-44-84.ngrok-free.app/api/transactions"
+            "https://7df4-102-135-174-116.ngrok-free.app/api/transactions"
           )
 
         if customer_record["success"] == true do

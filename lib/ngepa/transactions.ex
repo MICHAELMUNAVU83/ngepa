@@ -27,6 +27,7 @@ defmodule Ngepa.Transactions do
       |> Repo.preload(:product)
     else
       Repo.all(Transaction)
+      |> Enum.filter(fn transaction -> transaction.success == true end)
       |> Repo.preload(:product)
       |> Enum.filter(fn transaction ->
         String.contains?(

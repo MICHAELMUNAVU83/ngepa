@@ -128,7 +128,7 @@
     <div class="swiper-wrapper w-[100%]">
       <%= for product <- @products do %>
         <div class="swiper-slide md:p-0 p-4 w-[100%]">
-          <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name , class: "w-[100%]" )   do %>
+          <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name ), class: "w-[100%]" do %>
             <div class="flex flex-col gap-2 w-[100%]   ">
               <img
                 src={product.primary_image}
