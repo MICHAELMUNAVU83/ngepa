@@ -41,113 +41,175 @@
 <% end %>
 <div>
   <div
-    class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
-    style="background-image: url('/images/cap.jpg'); background-size: cover; background-position: center;"
+    class="w-[100%] -mb-12 z-0  h-[40vh]"
+    style={
+      "background-image: url('#{@product.primary_image}'); background-size: cover; background-position: center;"
+    }
   >
     <div class="w-[100%] h-[100%] bg-black/50 flex justify-center items-center  text-white">
-      <p class="text-5xl uppercase">
+      <p class="text-6xl poppins-bold uppercase">
         <%= @product.name %>
       </p>
     </div>
   </div>
-  <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 h-[100vh]">
-    <div class="w-[100%] flex justify-between items-start">
-      <div class="w-[48%] h-[90vh] ">
-        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+  <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 ">
+    <%= live_redirect to: Routes.product_index_path(@socket , :index) do %>
+      <p class="text-xl flex gap-2 items-center my-2 poppins-bold">
+        <i class="fa fa-long-arrow-left" aria-hidden="true"></i> back to products
+      </p>
+    <% end %>
+    <div class="w-[100%] flex justify-between md:flex-row flex-col gap-8 md:items-start">
+      <div class="md:w-[48%] w-[100%]  h-[50vh] ">
+        <div class="swiper z-0 w-[100%]  h-[50vh]" phx-hook="ProductSwiper" id="swiper">
+          <div class="swiper-wrapper z-0 h-[100%] w-[100%]">
+            <%= for slide <- @slides do %>
+              <img
+                alt="product image"
+                class=" w-full object-cover z-0 swiper-slide object-center h-[100%] rounded border border-gray-200"
+                src={slide}
+              />
+            <% end %>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
       </div>
-      <div class="w-[48%] flex flex-col gap-4">
-        <p>Description</p>
-        <p>Stars</p>
-        <p>Prices</p>
-        <p>Images</p>
-        <%= live_patch(to: Routes.product_show_path(@socket, :edit, @product)) do %>
-          <button class="bg-black text-white p-4">Edit Product Details</button>
-        <% end %>
+      <div class="md:w-[48%] w-[100%] py-8 md:py-0 flex flex-col gap-4">
+        <p class="text-2xl poppins-bold">
+          <%= @product.name %>
+        </p>
 
-        <%= live_patch(to: Routes.product_show_path(@socket, :add_color, @product)) do %>
-          <button class="bg-black text-white p-4">Add Color</button>
-        <% end %>
+        <div class="flex gap-2 items-center">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <%= if Enum.random([true, false]) do %>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+          <% end %>
+        </div>
 
-        <%= live_patch(to: Routes.product_show_path(@socket, :add_product_image, @product)) do %>
-          <button class="bg-black text-white p-4">Add Images</button>
-        <% end %>
+        <p class="text-xl poppins-bold ">KES <%= @product.price %> /=</p>
+        <p class="text-sm raleway-bold"><%= @product.description %></p>
+        <div class="flex justify-between w-[100%]">
+          <%= live_patch(to: Routes.product_show_path(@socket, :edit, @product)) do %>
+            <button class="bg-black text-white p-4">Edit Product Details</button>
+          <% end %>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Colors</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="products">
-            <%= for color <- @colors do %>
-              <tr id={"color-#{color.id}"}>
-                <td><%= color.name %></td>
-                <td>
-                  <span>
-                    <%= live_patch("Edit",
-                      to: Routes.product_show_path(@socket, :edit_color, color.id, @product.id)
-                    ) %>
-                  </span>
-                  <span>
-                    <%= link("Delete",
-                      to: "#",
-                      phx_click: "delete_color",
-                      phx_value_id: color.id,
-                      phx_value_product_id: @product.id,
-                      data: [confirm: "Are you sure?"]
-                    ) %>
-                  </span>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+          <%= live_patch(to: Routes.product_show_path(@socket, :add_color, @product)) do %>
+            <button class="bg-black text-white p-4">Add Color</button>
+          <% end %>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="products">
-            <%= for product_image <- @product_images do %>
-              <tr>
-                <td>
-                  <img
-                    src={product_image.image_url}
-                    alt=""
-                    class="h-[100px] w-[100px] object-cover"
-                  />
-                </td>
-                <td>
-                  <span>
-                    <%= live_patch("Edit",
-                      to:
-                        Routes.product_show_path(
-                          @socket,
-                          :edit_product_image,
-                          @product.id,
-                          product_image.id
-                        )
-                    ) %>
-                  </span>
-                  <span>
-                    <%= link("Delete",
-                      to: "#",
-                      phx_click: "delete_product_image",
-                      phx_value_id: product_image.id,
-                      phx_value_product_id: @product.id,
-                      data: [confirm: "Are you sure?"]
-                    ) %>
-                  </span>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+          <%= live_patch(to: Routes.product_show_path(@socket, :add_product_image, @product)) do %>
+            <button class="bg-black text-white p-4">Add Images</button>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="w-[96%] mx-auto mt-8 pt-8 px-4  shadow-md shadow-gray-400 bg-white">
+  <b class="text-xl poppins-regular">
+    Colors
+  </b>
+  <table class="w-[100%] shadow-white raleway-regular shadow-sm">
+    <thead class="w-[100%]  text-white bg-black">
+      <tr class="poppins-regular">
+        <th>Colors</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody class=" text-center" id="products">
+      <%= for color <- @colors do %>
+        <tr id={"color-#{color.id}"}>
+          <td>
+            <%= color.name %>
+          </td>
+          <td>
+            <div class="flex flex-row gap-2 justify-center items-center">
+              <%= live_patch(
+                to: Routes.product_show_path(@socket, :edit_color,  @product.id , color.id)
+              ) do %>
+                <%= Heroicons.icon("pencil",
+                  type: "solid",
+                  class: "h-6  group-hover:text-blue-600 text-blue-400 w-6"
+                ) %>
+              <% end %>
+
+              <%= link(
+                to: "#",
+                phx_click: "delete_color",
+                phx_value_id: color.id,
+                phx_value_product_id: @product.id,
+                data: [confirm: "Are you sure?"]
+              )  do %>
+                <%= Heroicons.icon("trash",
+                  type: "solid",
+                  class: "h-6  group-hover:text-red-600 text-red-400 w-6"
+                ) %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <b class="text-xl poppins-regular">
+    Images
+  </b>
+
+  <table class="w-[100%] shadow-white raleway-regular shadow-sm">
+    <thead class="w-[100%]  text-white bg-black">
+      <tr class="poppins-regular">
+        <th>Image</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="products">
+      <%= for product_image <- @product_images do %>
+        <tr>
+          <td>
+            <div class="flex justify-center items-center">
+              <img src={product_image.image_url} alt="" class="h-[50px] w-[50px] object-cover" />
+            </div>
+          </td>
+          <td>
+            <div class="flex flex-row gap-2 justify-center items-center">
+              <%= live_patch(
+                to:
+                  Routes.product_show_path(
+                    @socket,
+                    :edit_product_image,
+                    @product.id,
+                    product_image.id
+                  )
+              )  do %>
+                <%= Heroicons.icon("pencil",
+                  type: "solid",
+                  class: "h-6  group-hover:text-blue-600 text-blue-400 w-6"
+                ) %>
+              <% end %>
+
+              <%= link(
+                to: "#",
+                phx_click: "delete_product_image",
+                phx_value_id: product_image.id,
+                phx_value_product_id: @product.id,
+                data: [confirm: "Are you sure?"]
+              ) do %>
+                <%= Heroicons.icon("trash",
+                  type: "solid",
+                  class: "h-6  group-hover:text-red-600 text-red-400 w-6"
+                ) %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

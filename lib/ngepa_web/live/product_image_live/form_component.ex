@@ -15,6 +15,10 @@ defmodule NgepaWeb.ProductImageLive.FormComponent do
      |> assign(:changeset, changeset)}
   end
 
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :image, ref)}
+  end
+
   @impl true
   def handle_event("validate", %{"product_image" => product_image_params}, socket) do
     changeset =

@@ -26,20 +26,36 @@
   <body>
     <div class="md:flex justify-between hidden   poppins-regular items-center  py-6 w-[100%] px-12">
       <div class="flex gap-4 text-base items-center">
-        <p>Home</p>
-        <p>Collections</p>
-        <p>Shop</p>
+        <a href="/" class="hover:underline scale-105 transition-all ease-in-out duration-500">
+          Home
+        </a>
+        <a
+          href="/#collection"
+          class="hover:underline scale-105 transition-all ease-in-out duration-500"
+        >
+          Collections
+        </a>
+        <a href="/#shop" class="hover:underline scale-105 transition-all ease-in-out duration-500">
+          Shop
+        </a>
       </div>
       <b class="poppins-bold text-3xl">Headwear Solutions</b>
       <div class="flex gap-4 text-base items-center">
-        <p>Contact</p>
+        <p class="hover:underline scale-105 transition-all ease-in-out duration-500">Contact</p>
         <%= if @current_user do %>
-          <%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %>
-
-          <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+          <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+            <%= String.slice(@current_user.email, 0..4) %> ..
+          </p>
+          <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+            <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+          </p>
         <% else %>
-          <%= link("Login", to: Routes.user_session_path(@conn, :new)) %>
-          <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %>
+          <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+            <%= link("Login", to: Routes.user_session_path(@conn, :new)) %>
+          </p>
+          <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+            <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %>
+          </p>
         <% end %>
       </div>
     </div>
@@ -68,26 +84,46 @@
           class="flex flex-col poppins-regular text-xl gap-4 items-start p-4 pt-24 "
           id="sidebarContent"
         >
-          <%= if @current_user do %>
-            dashboard
-          <% end %>
-          <p>
-            dashboard
-          </p>
-          <%= if @current_user do %>
-            <%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %>
+          <a href="/" class="hover:underline scale-105 transition-all ease-in-out duration-500">
+            Home
+          </a>
+          <a
+            href="/#collection"
+            class="hover:underline scale-105 transition-all ease-in-out duration-500"
+          >
+            Collections
+          </a>
+          <a
+            href="/#shop"
+            class="hover:underline scale-105 transition-all ease-in-out duration-500"
+          >
+            Shop
+          </a>
 
-            <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+          <%= if @current_user do %>
+            <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+              <%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %>
+            </p>
+            <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+              <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+            </p>
           <% else %>
-            <%= link("Login", to: Routes.user_session_path(@conn, :new)) %>
-            <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %>
+            <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+              <%= link("Login", to: Routes.user_session_path(@conn, :new)) %>
+            </p>
+            <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+              <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %>
+            </p>
           <% end %>
         </div>
       </div>
     </nav>
     <%= @inner_content %>
 
-    <footer class="w-[100%] p-8 flex justify-between bg-[#F5F3EE] md:items-center items-start gap-8 md:flex-row flex-col">
+    <footer
+      id="contact"
+      class="w-[100%] p-8 flex justify-between bg-[#F5F3EE] md:items-center items-start gap-8 md:flex-row flex-col"
+    >
       <div class="flex flex-col w-[100%] md:w-[30%] gap-4">
         <p class="text-xl poppins-bold">Headwear Solutions</p>
         <p class="text-base raleway-regular">

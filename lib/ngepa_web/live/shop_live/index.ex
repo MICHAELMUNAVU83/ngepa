@@ -22,7 +22,7 @@ defmodule NgepaWeb.ShopLive.Index do
 
     colors =
       product.colors
-      |> Enum.map(fn color -> {color.name, color.id} end)
+      |> Enum.map(fn color -> color.name end)
 
     slides = [
       product.primary_image

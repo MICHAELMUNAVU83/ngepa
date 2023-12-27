@@ -94,9 +94,14 @@
 
         <p class="poppins-regular">Colors Available:</p>
 
-        <span class="flex items-center">
-          <p class="w-[20px] h-[20px] rounded-full bg-red-500" />
-        </span>
+        <div class="flex gap-2">
+          <%= for color <- @colors do %>
+            <p>
+              <%= color %>
+            </p>
+          <% end %>
+        </div>
+
         <div class="w-[100%]">
           <%= live_redirect to: Routes.shop_index_path(@socket, :buy,  @product.name) do %>
             <button class="bg-[#DCDCDC] w-[100%] text-black poppins-regular text-xl p-4">

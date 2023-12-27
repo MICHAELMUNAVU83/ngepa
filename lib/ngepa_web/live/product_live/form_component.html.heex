@@ -10,41 +10,112 @@
     phx-submit="save"
   >
     <%= hidden_input(f, :user_id, value: @current_user.id) %>
-    <%= label(f, :name) %>
-    <%= text_input(f, :name) %>
-    <%= error_tag(f, :name) %>
+    <div class="flex flex-col gap-2  w-[100%]">
+      <%= label(f, :name, class: "text-xl font-semibold") %>
+      <%= text_input(f, :name,
+        class:
+          "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent",
+        placeholder: "Enter the product's name"
+      ) %>
+      <p class="my-2">
+        <%= error_tag(f, :name) %>
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <%= label(f, :in_stock, class: "text-xl font-semibold") %>
+      <%= checkbox(f, :in_stock) %>
+    </div>
 
-    <%= label(f, :description) %>
-    <%= text_input(f, :description) %>
-    <%= error_tag(f, :description) %>
-    <%= label(f, :image) %>
-    <%= live_file_input(@uploads.image) %>
+    <div class="w-[100%] flex md:flex-row flex-col gap-2 justify-between">
+      <div class="flex flex-col gap-2  w-[100%] md:w-[48%]">
+        <%= label(f, :price, class: "text-xl font-semibold") %>
+        <%= number_input(f, :price,
+          placeholder: "Enter the product's price in KES ",
+          class:
+            "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+        ) %>
+        <p class="my-2">
+          <%= error_tag(f, :price) %>
+        </p>
+      </div>
+      <div class="flex flex-col gap-2  w-[100%] md:w-[48%]">
+        <%= label(f, :collection, class: "text-xl font-semibold") %>
+        <%= select(f, :collection, ["unisex", "men", "women"],
+          prompt: "Select a collection",
+          class:
+            "w-[100%] rounded-md  h-[40px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+        ) %>
+        <p class="my-2">
+          <%= error_tag(f, :collection) %>
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2  w-[100%] ">
+      <%= label(f, :description, class: "text-xl font-semibold") %>
+      <%= textarea(f, :description,
+        placeholder: "Enter the product's description",
+        class:
+          "w-[100%] rounded-md  h-[100px] focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+      ) %>
+      <p class="my-2">
+        <%= error_tag(f, :description) %>
+      </p>
+    </div>
+    <div class="flex flex-col gap-2  w-[100%] ">
+      <%= label(f, :image, class: "text-xl raleway-regular font-semibold") %>
+      <%= live_file_input(@uploads.image,
+        required:
+          if @action == :new_product_image do
+            true
+          else
+            false
+          end,
+        class:
+          "w-[100%] rounded-md bg-gray-200 p-3   focus:outline-none focus:ring-2 focus:ring-[#000] focus:border-transparent"
+      ) %>
+    </div>
 
-    <%= if @action == :edit do %>
-      <%= @product.primary_image %>
-    <% end %>
+    <div class="flex  my-4 justify-between ">
+      <%= if @action == :edit do %>
+        <div>
+          <p class="poppins-bold">
+            Current Image:
+          </p>
+          <img src={@product.primary_image} class="h-[200px] w-[200px] object-cover" />
+        </div>
+      <% end %>
+      <div>
+        <%= if @uploads.image.entries != [] do %>
+          <%= if @action == :edit do %>
+            <p class="poppins-bold">
+              New Image:
+            </p>
+          <% else %>
+            <p class="poppins-bold">
+              Image preview:
+            </p>
+          <% end %>
+        <% end %>
 
-    <%= for entry <- @uploads.image.entries do %>
-      <%= live_img_preview(entry, style: "max-width: 200px; max-height: 200px;") %>
-      <button phx-click="cancel-upload" phx-value-ref={entry.ref}>
-        Cancel
-      </button>
-    <% end %>
-
-    <%= label(f, :in_stock) %>
-    <%= checkbox(f, :in_stock) %>
-    <%= error_tag(f, :in_stock) %>
-
-    <%= label(f, :price) %>
-    <%= number_input(f, :price) %>
-    <%= error_tag(f, :price) %>
-
-    <%= label(f, :collection) %>
-    <%= text_input(f, :collection) %>
-    <%= error_tag(f, :collection) %>
-
-    <div>
-      <%= submit("Save", phx_disable_with: "Saving...") %>
+        <%= for entry <- @uploads.image.entries do %>
+          <%= live_img_preview(entry, class: "h-[200px] w-[200px] object-cover") %>
+          <button
+            type="button"
+            class="flex justify-center bg-red-500  rounded-b-md px-2 text-base text-white w-[100%] mx-auto items-center"
+            phx-click="cancel-upload"
+            phx-value-ref={entry.ref}
+            phx-target={@myself}
+          >
+            Cancel
+          </button>
+        <% end %>
+      </div>
+    </div>
+    <div class="flex justify-center items-center">
+      <%= submit("Save",
+        phx_disable_with: "Saving...",
+        class: "bg-[#000] text-white p-2 rounded-md"
+      ) %>
     </div>
   </.form>
 </div>
