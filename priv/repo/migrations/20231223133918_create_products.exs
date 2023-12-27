@@ -4,7 +4,7 @@ defmodule Ngepa.Repo.Migrations.CreateProducts do
   def change do
     create table(:products) do
       add :name, :string
-      add :description, :string
+      add :description, :text
       add :primary_image, :string
       add :in_stock, :boolean, default: false, null: false
       add :price, :integer

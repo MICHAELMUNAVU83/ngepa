@@ -8,7 +8,7 @@ defmodule Ngepa.Repo.Migrations.CreateProductOrders do
       add :customer_email, :string
       add :customer_phone_number, :string
       add :location, :string
-      add :more_location_details, :string
+      add :more_location_details, :text
       add :status, :string
       add :latitude, :float
       add :longitude, :float

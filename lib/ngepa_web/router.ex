@@ -19,15 +19,21 @@ defmodule NgepaWeb.Router do
 
   scope "/", NgepaWeb do
     pipe_through :browser
-
     live "/", PageLive.Index, :index
-    live "/transactions", TransactionLive.Index, :index
-    live "/system_users", SystemUserLive.Index, :index
     live "/collection/:collection_name", CollectionLive.Index, :index
     live "/shop/:product_name", ShopLive.Index, :index
     live "/shop/:product_name/buy", ShopLive.Index, :buy
     live "/shop/:product_name/:product_order_id/success", ShopLive.Index, :success
     live "/shop/:product_name/failed", ShopLive.Index, :failed
+    live "/product_orders/:id", ProductOrderLive.Show, :show
+  end
+
+  scope "/", NgepaWeb do
+    pipe_through [:browser, :require_authenticated_admin]
+
+    live "/transactions", TransactionLive.Index, :index
+    live "/system_users", SystemUserLive.Index, :index
+
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
     live "/products/:id/edit", ProductLive.Index, :edit
@@ -50,7 +56,6 @@ defmodule NgepaWeb.Router do
     live "/product_orders/new", ProductOrderLive.Index, :new
     live "/product_orders/:id/edit", ProductOrderLive.Index, :edit
 
-    live "/product_orders/:id", ProductOrderLive.Show, :show
     live "/product_orders/:id/show/edit", ProductOrderLive.Show, :edit
   end
 
@@ -72,8 +77,6 @@ defmodule NgepaWeb.Router do
 
     scope "/" do
       pipe_through :browser
-
-      live_dashboard "/dashboard", metrics: NgepaWeb.Telemetry
     end
   end
 
