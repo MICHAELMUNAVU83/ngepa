@@ -40,21 +40,21 @@
 
 <div>
   <div
-    class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
+    class="w-[100%] -mb-12 z-0  h-[40vh]"
     style={
       "background-image: url('#{@product.primary_image}'); background-size: cover; background-position: center;"
     }
   >
     <div class="w-[100%] h-[100%] bg-black/50 flex justify-center items-center  text-white">
-      <p class="text-5xl uppercase">
+      <p class="text-6xl poppins-bold uppercase">
         <%= @product.name %>
       </p>
     </div>
   </div>
 
   <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 h-[100vh]">
-    <div class="w-[100%] flex justify-between items-start">
-      <div class="w-[48%] h-[90vh] ">
+    <div class="w-[100%] flex justify-between md:flex-row flex-col items-start">
+      <div class="md:w-[48%] w-[100%] md:h-[90vh] h-[40vh] ">
         <div class="swiper z-0 w-[100%]  " phx-hook="ProductSwiper" id="swiper">
           <div class="swiper-wrapper z-0 w-[100%]">
             <%= for slide <- @slides do %>
@@ -69,7 +69,7 @@
           <div class="swiper-button-prev"></div>
         </div>
       </div>
-      <div class="w-[48%] flex flex-col gap-4">
+      <div class="md:w-[48%] w-[100%] flex flex-col gap-4">
         <p class="text-2xl poppins-bold">
           <%= @product.name %>
         </p>

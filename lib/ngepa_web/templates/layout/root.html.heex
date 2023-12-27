@@ -24,7 +24,7 @@
     </script>
   </head>
   <body>
-    <div class="flex justify-between  poppins-regular items-center  py-6 w-[100%] px-12">
+    <div class="md:flex justify-between hidden   poppins-regular items-center  py-6 w-[100%] px-12">
       <div class="flex gap-4 text-base items-center">
         <p>Home</p>
         <p>Collections</p>
@@ -43,6 +43,48 @@
         <% end %>
       </div>
     </div>
+
+    <nav id="nav">
+      <div class=" bg-white  w-[100%] items-center  md:hidden flex justify-between p-2">
+        <div>
+          <%= live_redirect to: Routes.page_index_path(@conn, :index) do %>
+            <p class="text-xl poppins-regular text-black">
+              Headwear Solutions
+            </p>
+          <% end %>
+        </div>
+        <button id="toggleButton" class=" flex flex-col  rounded-md gap-2  ">
+          <div class="h-[2px] bg-black w-[40px]" />
+          <div class="h-[2px] bg-black w-[40px]" />
+          <div class="h-[2px] bg-black w-[40px]" />
+        </button>
+      </div>
+
+      <div
+        id="sidebar"
+        class="fixed green top-0 left-0 h-full w-60 z-50 bg-white  text-black transition duration-300 transform -translate-x-full"
+      >
+        <div
+          class="flex flex-col poppins-regular text-xl gap-4 items-start p-4 pt-24 "
+          id="sidebarContent"
+        >
+          <%= if @current_user do %>
+            dashboard
+          <% end %>
+          <p>
+            dashboard
+          </p>
+          <%= if @current_user do %>
+            <%= link("Settings", to: Routes.user_settings_path(@conn, :edit)) %>
+
+            <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
+          <% else %>
+            <%= link("Login", to: Routes.user_session_path(@conn, :new)) %>
+            <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
     <%= @inner_content %>
   </body>
 </html>

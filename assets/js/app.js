@@ -29,6 +29,17 @@ let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
 
+const toggleButton = document.getElementById("toggleButton");
+const sidebar = document.getElementById("sidebar");
+
+toggleButton.addEventListener("click", () => {
+  sidebar.classList.toggle("-translate-x-full");
+});
+
+document.getElementById("sidebarContent").addEventListener("click", () => {
+  sidebar.classList.toggle("-translate-x-full");
+});
+
 let Hooks = {};
 Hooks.ProductLocation = {
   mounted() {
@@ -168,6 +179,79 @@ Hooks.ProductSwiper = {
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
+      },
+
+      // If we need pagination
+
+      // And if we need scrollbar
+    });
+  },
+};
+
+Hooks.ShopSwiper = {
+  mounted() {
+    const swiper = new Swiper(".shopswiper", {
+      // Optional parameters
+
+      loop: true,
+      rewind: true,
+      autoplay: {
+        delay: 5000,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      slidesPerView: 1,
+
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+      },
+
+      // If we need pagination
+
+      // And if we need scrollbar
+    });
+  },
+  updated() {
+    const swiper = new Swiper(".shopswiper", {
+      // Optional parameters
+
+      loop: true,
+      rewind: true,
+      autoplay: {
+        delay: 5000,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      slidesPerView: 1,
+
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
       },
 
       // If we need pagination

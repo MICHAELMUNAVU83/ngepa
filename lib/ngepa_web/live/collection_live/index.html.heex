@@ -16,7 +16,7 @@
   </div>
 
   <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 min-h-[100vh]">
-    <div class="w-[100%] grid grid-cols-2 gap-6">
+    <div class="w-[100%] grid md:grid-cols-2 gap-6">
       <%= for product <- @products do %>
         <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name)  do %>
           <div class="flex flex-col gap-2 w-[100%]   ">

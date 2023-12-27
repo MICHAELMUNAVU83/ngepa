@@ -119,6 +119,11 @@
   width: 80%;
 }
 
+/* Optionally, you can change the active pagination item color */
+.swiper-pagination-bullet-active {
+  background-color: black !important; /* Set your desired active color */
+}
+
 .phx-modal-close {
   color: #aaa;
   float: right;
