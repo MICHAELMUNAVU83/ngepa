@@ -43,9 +43,15 @@
       <div class="flex gap-4 text-base items-center">
         <p class="hover:underline scale-105 transition-all ease-in-out duration-500">Contact</p>
         <%= if @current_user do %>
-          <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
-            <%= String.slice(@current_user.email, 0..4) %> ..
-          </p>
+          <%= if @current_user.role == "admin"  do %>
+            <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
+              <%= live_redirect to: Routes.page_index_path(@conn, :index) do %>
+                <p class="text-xl poppins-regular text-black">
+                  Headwear Solutions
+                </p>
+              <% end %>
+            </p>
+          <% end %>
           <p class="hover:underline scale-105 transition-all ease-in-out duration-500">
             <%= link("Log out", to: Routes.user_session_path(@conn, :delete), method: :delete) %>
           </p>
