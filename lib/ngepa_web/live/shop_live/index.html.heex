@@ -41,7 +41,9 @@
 <div>
   <div
     class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
-    style="background-image: url('/images/cap.jpg'); background-size: cover; background-position: center;"
+    style={
+      "background-image: url('#{@product.primary_image}'); background-size: cover; background-position: center;"
+    }
   >
     <div class="w-[100%] h-[100%] bg-black/50 flex justify-center items-center  text-white">
       <p class="text-5xl uppercase">
@@ -53,25 +55,68 @@
   <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 h-[100vh]">
     <div class="w-[100%] flex justify-between items-start">
       <div class="w-[48%] h-[90vh] ">
-        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+        <div class="swiper z-0 w-[100%]  " phx-hook="ProductSwiper" id="swiper">
+          <div class="swiper-wrapper z-0 w-[100%]">
+            <%= for slide <- @slides do %>
+              <img
+                alt="product image"
+                class=" w-full object-cover z-0 swiper-slide object-center md:h-[350px] h-[300px] rounded border border-gray-200"
+                src={slide}
+              />
+            <% end %>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
       </div>
       <div class="w-[48%] flex flex-col gap-4">
-        <p>Description</p>
-        <p>Stars</p>
-        <p>Prices</p>
-        <p>Images</p>
+        <p class="text-2xl poppins-bold">
+          <%= @product.name %>
+        </p>
 
-        <p>Colors Available</p>
+        <div class="flex gap-2 items-center">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <%= if Enum.random([true, false]) do %>
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+          <% end %>
+        </div>
+
+        <p class="text-xl poppins-bold ">KES <%= @product.price %> /=</p>
+        <p class="text-sm raleway-bold"><%= @product.description %></p>
+
+        <p class="poppins-regular">Colors Available:</p>
 
         <span class="flex items-center">
           <p class="w-[20px] h-[20px] rounded-full bg-red-500" />
         </span>
+        <div class="w-[100%]">
+          <%= live_redirect to: Routes.shop_index_path(@socket, :buy,  @product.name) do %>
+            <button class="bg-[#DCDCDC] w-[100%] text-black poppins-regular text-xl p-4">
+              Order Now
+            </button>
+          <% end %>
+        </div>
 
-        <%= live_redirect to: Routes.shop_index_path(@socket, :buy,  @product.name) do %>
-          <button class="bg-black text-white p-4">
-            Order Now
-          </button>
-        <% end %>
+        <div class="flex raleway gap-2 items-center">
+          <i class="fa fa-money" aria-hidden="true"></i>
+
+          <p>
+            Secure Payments with Mpesa
+          </p>
+        </div>
+        <div class="flex raleway gap-2 items-center">
+          <i class="fa fa-truck" aria-hidden="true"></i>
+
+          <p>
+            Orders Ship within 5 to 10 business days
+          </p>
+        </div>
       </div>
     </div>
   </div>

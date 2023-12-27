@@ -1,32 +1,47 @@
 <div>
   <div
     class="w-[100%] -mb-12 bg-blue-400 z-0  h-[40vh]"
-    style="background-image: url('/images/cap.jpg'); background-size: cover; background-position: center;"
+    style={
+      "background-image: url('#{@image_to_display.image_url}'); background-size: cover; background-position: center;"
+    }
   >
-    <div class="w-[100%] h-[100%] bg-black/50 flex justify-center items-center  text-white">
-      <p class="text-5xl uppercase">
+    <div class="w-[100%] h-[100%] bg-black/50 flex justify-center flex-col items-center  text-white">
+      <p class="text-6xl   poppins-bold uppercase">
         <%= @collection_name %>
+      </p>
+      <p class="raleway-regular">
+        Shop our most exclusive <%= @collection_name %> collection
       </p>
     </div>
   </div>
 
   <div class=" z-40  w-[96%] mx-auto mb-12  bg-white shadow-md shadow-gray-400 pt-12 px-4 min-h-[100vh]">
-    <p class="text-xl">
-      View  our <%= @collection_name %> collection
-    </p>
-    <div class="w-[100%] grid grid-cols-3">
+    <div class="w-[100%] grid grid-cols-2 gap-6">
       <%= for product <- @products do %>
         <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name)  do %>
           <div class="flex flex-col gap-2 w-[100%]   ">
             <img
-              src="/images/cap.jpg"
+              src={product.primary_image}
               alt=""
-              class="h-[40vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
+              class="h-[50vh] object-center w-[100%] object-cover"
             />
             <div class="p-4 flex flex-col gap-2">
-              <p>Title</p>
-              <p>Stars</p>
-              <p>KES 2000/=</p>
+              <p class="poppins-bold text-xl">
+                <%= product.name %>
+              </p>
+              <div class="flex gap-2 items-center">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <%= if Enum.random([true, false]) do %>
+                  <i class="fa fa-star-o" aria-hidden="true"></i>
+                <% else %>
+                  <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                <% end %>
+              </div>
+              <p class="poppins-semibold text-xl">KES <%= product.price %> /=</p>
             </div>
           </div>
         <% end %>

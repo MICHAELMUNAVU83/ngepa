@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,100&family=Libre+Baskerville:wght@700&family=M+PLUS+Rounded+1c&family=Montserrat:ital@1&family=Open+Sans:ital@1&family=Poppins:wght@300;400;500;700&family=Questrial&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,100&family=Libre+Baskerville:wght@700&family=M+PLUS+Rounded+1c&family=Montserrat:ital@1&family=Open+Sans:ital@1&family=Poppins:wght@300;400;500;700&family=Raleway:ital,wght@0,400;0,500;1,300&family=Questrial&family=Roboto&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -17,6 +17,37 @@
 .poppins-bold {
   font-family: "Poppins", sans-serif;
   font-weight: 700;
+}
+
+.raleway-light {
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+}
+
+.raleway-regular {
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}
+
+.raleway-bold {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+}
+
+.swiper-button-next {
+  color: black !important;
+  background-color: white !important;
+  padding: 25px;
+
+  font-size: 5px;
+}
+
+.swiper-button-prev {
+  color: black !important;
+  background-color: white !important;
+  padding: 25px;
+
+  font-size: 5px;
 }
 /* Alerts and form errors used by phx.new */
 .alert {
@@ -70,7 +101,7 @@
 .phx-modal {
   opacity: 1 !important;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
@@ -83,6 +114,7 @@
   background-color: #fefefe;
   margin: 15vh auto;
   padding: 20px;
+  border-radius: 20px;
   border: 1px solid #888;
   width: 80%;
 }

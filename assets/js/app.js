@@ -138,17 +138,56 @@ Hooks.LocationMap = {
   },
 };
 
-Hooks.Trending = {
+Hooks.ProductSwiper = {
   mounted() {
-    var swiper = new Swiper(".mySwiper", {
-      direction: "vertical",
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
+    const swiper = new Swiper(".swiper", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: true,
+      autoplay: {
+        delay: 5000,
       },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+
+      // If we need pagination
+
+      // And if we need scrollbar
+    });
+  },
+  updated() {
+    const swiper = new Swiper(".swiper", {
+      // Optional parameters
+      direction: "horizontal",
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+
+      // If we need pagination
+
+      // And if we need scrollbar
     });
   },
 };
+
+// Hooks.Trending = {
+//   mounted() {
+//     var swiper = new Swiper(".mySwiper", {
+//       direction: "vertical",
+//       pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true,
+//       },
+//     });
+//   },
+// };
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" });

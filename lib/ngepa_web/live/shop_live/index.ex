@@ -24,8 +24,14 @@ defmodule NgepaWeb.ShopLive.Index do
       product.colors
       |> Enum.map(fn color -> {color.name, color.id} end)
 
+    slides = [
+      product.primary_image
+      | product.product_images |> Enum.map(fn product_image -> product_image.image_url end)
+    ]
+
     socket
     |> assign(:product, product)
+    |> assign(:slides, slides)
     |> assign(:colors, colors)
     |> assign(:page_title, "#{product.name}")
   end
@@ -37,8 +43,14 @@ defmodule NgepaWeb.ShopLive.Index do
       product.colors
       |> Enum.map(fn color -> color.name end)
 
+    slides = [
+      product.primary_image
+      | product.product_images |> Enum.map(fn product_image -> product_image.image_url end)
+    ]
+
     socket
     |> assign(:product, product)
+    |> assign(:slides, slides)
     |> assign(:colors, colors)
     |> assign(:product_order, %ProductOrder{})
     |> assign(:changeset, ProductOrders.change_product_order(%ProductOrder{}))
@@ -62,8 +74,14 @@ defmodule NgepaWeb.ShopLive.Index do
        }) do
     product = Products.get_product_by_name!(product_name)
 
+    slides = [
+      product.primary_image
+      | product.product_images |> Enum.map(fn product_image -> product_image.image_url end)
+    ]
+
     socket
     |> assign(:product, product)
+    |> assign(:slides, slides)
     |> assign(:page_title, "Failed")
   end
 

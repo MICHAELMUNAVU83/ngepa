@@ -1,17 +1,21 @@
 <div class="h-[100vh]  relative w-[100%] ">
-  <img src="/images/cap1.jpg" alt="" class="h-[100vh] w-[100%] object-cover" />
+  <div class="relative  w-[100%] h-[100%] ">
+    <img src="/images/cap1.jpeg" alt="" class="h-[100vh] w-[100%] object-cover" />
+    <div class="absolute inset-0 group-hover:scale-105 transition-all ease-in-out duration-500 bg-black opacity-10">
+    </div>
+  </div>
 
   <div class="absolute top-1/2 left-24 transform ">
-    <div class="flex flex-col gap-2 text-white text-3xl">
-      <p>New Collection</p>
-      <p>New Collection</p>
-      <p>New Collection</p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+    <div class="flex flex-col poppins-bold  gap-2 text-white text-xl">
+      <p class="uppercase">New Collection</p>
+      <p class="text-3xl uppercase">Find your perfect</p>
+      <p class="text-5xl uppercase">Headware</p>
+      <p class="text-xl  raleway-regular">
+        Shop the hightest quality beanies , caps and hats.
       </p>
       <div class="w-[100%]">
-        <button class="bg-black font-semibold text-white px-8 py-2">
-          Shop Now
+        <button class="bg-white font-semibold  hover:bg-black hover:text-white transition-all ease-in-out duration-500 cursor-pointer  text-black px-8 py-2">
+          Shop The Collection
         </button>
       </div>
     </div>
@@ -19,24 +23,37 @@
 </div>
 
 <div class="w-[90%] flex flex-col gap-5 mx-auto my-12">
-  <p class="text-2xl text-center font-semibold">New Collection</p>
+  <p class="text-2xl text-center  poppins-bold font-bold uppercase">
+    Our Collections
+  </p>
 
-  <p class="w-[50%] text-center mx-auto">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+  <p class="w-[50%] text-center raleway-regular text-xl mx-auto">
+    Explore the best trends for headware at Ngepa! Clothes, shoes and cool accessories for a new season are available now at Ngepa.
   </p>
 
   <div class="w-[100%] flex justify-between h-[80vh]">
-    <div class="w-[60%] relative h-[100%] ">
-      <%= live_redirect to: Routes.collection_index_path(@socket , :index, "men") do %>
-        <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
-        <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
-          <div class="flex flex-col  justify-center items-center gap-2 text-white text-3xl">
-            <p>Denim Jacket</p>
-            <p>Denim Jacket</p>
+    <div class="w-[60%] relative group h-[100%] ">
+      <%= live_redirect to: Routes.collection_index_path(@socket , :index, "unisex") do %>
+        <div class="relative  w-[100%] h-[100%] ">
+          <img
+            src="/images/unisex.jpg"
+            alt=""
+            class="h-[100%] w-[100%] group-hover:scale-105 transition-all ease-in-out duration-500 object-cover"
+          />
+          <div class="absolute inset-0 group-hover:scale-105 transition-all ease-in-out duration-500 bg-black opacity-30">
+          </div>
+        </div>
 
-            <div class="w-[100%] flex flex-col gap-1">
-              <p>Shop The Collection</p>
-              <p class="h-[2px] w-[100%] bg-white"></p>
+        <div class="absolute bottom-16 left-[50%] transform -translate-x-1/2   ">
+          <div class="flex flex-col w-[100%]  justify-center items-center gap-2 text-white text-3xl">
+            <p class="poppins-bold">Unisex</p>
+            <p class="raleway-regular text-sm text-center">
+              High quality headware for men and women
+            </p>
+
+            <div class="w-[100%] justify-center items-center text-center flex flex-col gap-1">
+              <p class="poppins-regular w-[100%] ">Shop The Collection</p>
+              <p class="h-[2px] w-[30%] mx-auto bg-white"></p>
             </div>
           </div>
         </div>
@@ -44,33 +61,53 @@
     </div>
 
     <div class="w-[35%] h-[100%] flex flex-col justify-between ">
-      <div class="w-[100%] relative h-[45%] ">
+      <div class="w-[100%] relative group h-[45%] ">
         <%= live_redirect to: Routes.collection_index_path(@socket , :index, "men") do %>
-          <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+          <div class="relative  w-[100%] h-[100%] ">
+            <img
+              src="/images/men.jpg"
+              alt=""
+              class="h-[100%] w-[100%] group-hover:scale-105 transition-all ease-in-out duration-500 object-cover"
+            />
+            <div class="absolute inset-0 group-hover:scale-105 transition-all ease-in-out duration-500 bg-black opacity-30">
+            </div>
+          </div>
           <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
             <div class="flex flex-col  justify-center items-center gap-2 text-white text-xl">
-              <p>Denim Jacket</p>
-              <p>Denim Jacket</p>
+              <p class="poppins-bold">Men</p>
+              <p class="raleway-regular text-sm text-center">
+                High quality headware for Men
+              </p>
 
-              <div class="w-[100%] flex flex-col gap-1">
-                <p>Shop The Collection</p>
-                <p class="h-[2px] w-[100%] bg-white"></p>
+              <div class="w-[100%] flex justify-center items-center text-center  flex-col gap-1">
+                <p class="poppins-regular w-[100%]">Shop The Collection</p>
+                <p class="h-[2px] w-[30%] mx-auto bg-white"></p>
               </div>
             </div>
           </div>
         <% end %>
       </div>
-      <div class="w-[100%] relative h-[45%] ">
-        <%= live_redirect to: Routes.collection_index_path(@socket , :index, "men") do %>
-          <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
-          <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2   ">
-            <div class="flex flex-col  justify-center items-center gap-2 text-white text-xl">
-              <p>Denim Jacket</p>
-              <p>Denim Jacket</p>
+      <div class="w-[100%]  group relative group h-[45%] ">
+        <%= live_redirect to: Routes.collection_index_path(@socket , :index, "women") do %>
+          <div class="relative  w-[100%] h-[100%] ">
+            <img
+              src="/images/woman.jpg"
+              alt=""
+              class="h-[100%] w-[100%] group-hover:scale-105 transition-all ease-in-out duration-500 object-cover"
+            />
+            <div class="absolute inset-0 group-hover:scale-105 transition-all ease-in-out duration-500 bg-black opacity-30">
+            </div>
+          </div>
+          <div class="absolute bottom-8 left-[50%] transform -translate-x-1/2  w-[100%] ">
+            <div class="flex flex-col w-[100%]  justify-center items-center gap-2 text-white text-xl">
+              <p class="poppins-bold">Women</p>
+              <p class="raleway-regular w-[100%] text-sm text-center">
+                High quality headware for Women
+              </p>
 
-              <div class="w-[100%] flex flex-col gap-1">
-                <p>Shop The Collection</p>
-                <p class="h-[2px] w-[100%] bg-white"></p>
+              <div class="w-[100%] flex flex-col justify-center items-center gap-1">
+                <p class="poppins-regular">Shop The Collection</p>
+                <p class="h-[2px] w-[30%] mx-auto bg-white"></p>
               </div>
             </div>
           </div>
@@ -81,21 +118,38 @@
 </div>
 
 <div class="flex flex-col gap-4 items-center justify-center">
-  <p class="text-xl font-semibold">Our Catalogue</p>
+  <p class="text-3xl  poppins-bold ">Our Catalogue</p>
 
-  <div class="w-[100%] grid grid-cols-4">
+  <p class="raleway-regular text-center">
+    Explore the best trends for headware at Ngepa! Clothes, shoes and cool accessories for a new season are available now at Ngepa.
+  </p>
+
+  <div class="w-[100%] grid grid-cols-3 gap-6">
     <%= for product <- @products do %>
       <%= live_redirect to: Routes.shop_index_path(@socket , :index , product.name)  do %>
         <div class="flex flex-col gap-2 w-[100%]   ">
           <img
-            src="/images/cap.jpg"
+            src={product.primary_image}
             alt=""
-            class="h-[50vh] border-r-[2px] border-gray-300 w-[100%] object-cover"
+            class="h-[50vh] object-center w-[100%] object-cover"
           />
           <div class="p-4 flex flex-col gap-2">
-            <p>Title</p>
-            <p>Stars</p>
-            <p>KES 2000/=</p>
+            <p class="poppins-bold text-xl">
+              <%= product.name %>
+            </p>
+            <div class="flex gap-2 items-center">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <%= if Enum.random([true, false]) do %>
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+              <% else %>
+                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+              <% end %>
+            </div>
+            <p class="poppins-semibold text-xl">KES <%= product.price %> /=</p>
           </div>
         </div>
       <% end %>
@@ -103,62 +157,67 @@
   </div>
 </div>
 
-<div class="py-12 grid grid-cols-2">
-  <div class="w-[100%] h-[60vh] ">
-    <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
-  </div>
-  <div class="w-[100%] h-[60vh] bg-gray-200">
-    <div class="p-12 flex flex-col gap-4 justify-center items-center">
-      <p>Top Trending</p>
-      <div id="trending" phx-hook="Trending" class="w-[70%] bg-gray-400 p-4 mx-auto">
-        <div class="swiper h-[300px]  mySwiper">
-          <div class="swiper-wrapper h-[100%]">
-            <div class="swiper-slide  bg-red-500">Slide 1</div>
-            <div class="swiper-slide  bg-red-500">Slide 1</div>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
+<div class="py-12 w-[100%]">
+  <div class="flex justify-between w-[100%]">
+    <div class="w-[60%]  h-[40vh] ">
+      <img src="/images/man1.jpg" alt="" class="h-[100%] w-[100%] object-center object-cover" />
+    </div>
+    <div class="w-[40%] h-[40vh] flex flex-col justify-center gap-2 p-2 bg-white">
+      <p class="poppins-bold">
+        Men's Headwear
+      </p>
+      <p class="raleway-light">
+        Does it get any more summertime than a classic summer dress? This wardrobe icon has earned its rightful place on our list of sunshine must-haves for a good reason
+      </p>
+
+      <p class="poppins-regular ">
+        View Collection
+      </p>
     </div>
   </div>
-  <div class="w-[100%] h-[60vh] bg-gray-100 flex flex-col justify-center items-end  p-4">
-    <p>LOngwear</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam</p>
-    <p>View More</p>
-  </div>
-  <div class="w-[100%] h-[60vh] ">
-    <img src="/images/cap.jpg" alt="" class="h-[100%] w-[100%] object-cover" />
+  <div class="flex justify-between w-[100%]">
+    <div class="w-[40%] h-[40vh] flex flex-col justify-center gap-2 p-2 bg-white">
+      <p class="poppins-bold">
+        Women's Headwear
+      </p>
+      <p class="raleway-light">
+        Does it get any more summertime than a classic summer dress? This wardrobe icon has earned its rightful place on our list of sunshine must-haves for a good reason
+      </p>
+
+      <p class="poppins-regular ">
+        View Collection
+      </p>
+    </div>
+    <div class="w-[60%]  h-[40vh] ">
+      <img src="/images/woman3.jpg" alt="" class="h-[100%] w-[100%] object-center object-cover" />
+    </div>
   </div>
 </div>
 
-<div class="h-[100vh] w-[100%] flex justify-end gap-12 items-center">
-  <div class="flex w-[40%] flex-col gap-2 ">
-    <p>Follow us o SOcial MEdia</p>
-    <p>@vinovatheme</p>
-    <p>
-      Contemporary wardrobe staples and authentic style for the modern man
-      and women. Follow us for the latest trends. Tag us and get featured
-      @vinovatheme
-    </p>
-    <p class="w-[100%] h-[2px] bg-black"></p>
-    <div class="gap-2 items-center flex">
-      <p>ico</p>
-      <p>ico</p>
-      <p>ico</p>
-      <p>ico</p>
-      <p>ico</p>
-    </div>
+<div class="pt-8 bg-[#F5F3EE] w-[100%] flex flex-col justify-center gap-12 items-center">
+  <p class="text-2xl font-bold poppins-bold">
+    Follow Us On Social Media
+  </p>
+  <div class="flex justify-center items-center gap-4">
+    <i class="fa fa-facebook-official text-4xl" aria-hidden="true"></i>
+    <i class="fa fa-instagram text-4xl" aria-hidden="true"></i>
+    <i class="fa fa-twitter text-4xl" aria-hidden="true"></i>
+    <i class="fa fa-youtube-play text-4xl" aria-hidden="true"></i>
   </div>
-  <div class="w-[50%] flex gap-2 flex-col ">
+  <p class="flex gap-2 text-center  raleway-regular items-center ">
+    Follow us for the latest trends.
+    Tag us and get featured <b class="poppins-regular">@headwearsolutions</b>
+  </p>
+  <div class="w-[80%] flex gap-2 flex-col ">
     <div class="grid items-center grid-cols-3">
-      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
-      <img class="h-[300px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
-      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
+      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/man1.jpg" />
+      <img class="h-[300px] w-[100%] object-cover" alt="" src="/images/unisex.jpg" />
+      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/woman.jpg" />
     </div>
     <div class="grid items-center grid-cols-3">
-      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
-      <img class="h-[250px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
-      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/cap.jpg" />
+      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/woman1.jpg" />
+      <img class="h-[300px] w-[100%] object-cover" alt="" src="/images/men.jpg" />
+      <img class="h-[200px] w-[100%] object-cover" alt="" src="/images/woman3.jpg" />
     </div>
   </div>
 </div>

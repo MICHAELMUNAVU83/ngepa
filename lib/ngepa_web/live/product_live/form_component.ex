@@ -79,6 +79,7 @@ defmodule NgepaWeb.ProductLive.FormComponent do
   defp save_product(socket, :new, product_params) do
     uploaded_files =
       consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
+        IO.inspect(path)
         dest = Path.join([:code.priv_dir(:ngepa), "static", "uploads", Path.basename(path)])
 
         # The `static/uploads` directory must exist for `File.cp!/2`
